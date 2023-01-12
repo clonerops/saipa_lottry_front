@@ -1,0 +1,4 @@
+[
+    {"Id": 1, "PlansNumber": 137, "NoticeNumber": 463915, "NoticeRowNumber": 548, "CircularNumber": 5464, "CarName": "کوئیک R", "OriginalCapacity": 10000, "ReserveCapacity": 10000, "BeginDate": "1401/10/22", "EndDate": "1401/10/26", "LotteryDate": "1401/10/30"},
+    {"Id": 2, "PlansNumber": 137, "NoticeNumber": 463915, "NoticeRowNumber": 548, "CircularNumber": 5464, "CarName": "سایپا 151", "OriginalCapacity": 8000, "ReserveCapacity": 8000, "BeginDate": "1401/10/22", "EndDate": "1401/10/26", "LotteryDate": "1401/10/30"}
+]
