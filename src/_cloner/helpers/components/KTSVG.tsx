@@ -4,12 +4,13 @@ import {toAbsoluteUrl} from '../AssetHelpers'
 type Props = {
   className?: string
   path: string
-  svgClassName?: string
+  svgClassName?: string,
+  id?: string
 }
 
-const KTSVG: React.FC<Props> = ({className = '', path, svgClassName = 'mh-50px'}) => {
+const KTSVG: React.FC<Props> = ({className = '', path, svgClassName = 'mh-50px', id}) => {
   return (
-    <span className={`svg-icon ${className}`}>
+    <span id={id} className={`svg-icon ${className}`}>
       <SVG src={toAbsoluteUrl(path)} className={svgClassName} />
     </span>
   )

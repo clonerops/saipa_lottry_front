@@ -86,7 +86,10 @@ const PlansTable: React.FC<Props> = ({className, columns, rows}) => {
                     <span className='text-dark tw-text-center fw-bold d-block fs-6'>{r.LotteryDate}</span>
                   </td>
                   <td>
-                    <div className='d-flex justify-content-center flex-shrink-0'>
+                    <div className='d-flex justify-content-center flex-shrink-0 tw-gap-2'>
+                        {/* <button className='tw-p-1 tw-bg-indigo-500 tw-text-white tw-rounded-md tw-outline-none '>واجد شرایط</button>
+                        <button className='tw-p-1 tw-bg-pink-600 tw-text-white tw-rounded-md tw-outline-none '>فاقد شرایط</button>
+                        <button className='tw-p-1 tw-bg-green-600 tw-text-white tw-rounded-md tw-outline-none '>بهم ریختگی</button> */}
                       <a
                         href='#'
                         className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
