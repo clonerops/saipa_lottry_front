@@ -2,6 +2,7 @@
 import React from 'react'
 import {PlansTableModel} from '../../../../app/modules/lottory/core/_models'
 import {KTSVG} from '../../../../_cloner/helpers'
+import Tooltip from '../../../../_cloner/helpers/components/Tooltip'
 import {Table} from '../../../../_cloner/helpers/models/_table'
 
 type Props = {
@@ -59,58 +60,82 @@ const PlansTable: React.FC<Props> = ({className, columns, rows}) => {
                     </div>
                   </td>
                   <td>
-                    <span className='text-dark tw-text-center fw-bold d-block fs-6'>{r.NoticeNumber}</span>
+                    <span className='text-dark tw-text-center fw-bold d-block fs-6'>
+                      {r.NoticeNumber}
+                    </span>
                   </td>
                   <td className='text-end'>
-                    <span className='text-dark tw-text-center fw-bold d-block fs-6'>{r.NoticeRowNumber}</span>
+                    <span className='text-dark tw-text-center fw-bold d-block fs-6'>
+                      {r.NoticeRowNumber}
+                    </span>
                   </td>
                   <td className='text-end'>
-                    <span className='text-dark tw-text-center fw-bold d-block fs-6'>{r.CircularNumber}</span>
+                    <span className='text-dark tw-text-center fw-bold d-block fs-6'>
+                      {r.CircularNumber}
+                    </span>
                   </td>
                   <td className='text-end'>
-                    <span className='text-dark tw-text-center fw-bold d-block fs-6'>{r.CarName}</span>
+                    <span className='text-dark tw-text-center fw-bold d-block fs-6'>
+                      {r.CarName}
+                    </span>
                   </td>
                   <td className='text-end'>
-                    <span className='text-dark tw-text-center fw-bold d-block fs-6'>{r.OriginalCapacity}</span>
+                    <span className='text-dark tw-text-center fw-bold d-block fs-6'>
+                      {r.OriginalCapacity}
+                    </span>
                   </td>
                   <td className='text-end'>
-                    <span className='text-dark tw-text-center fw-bold d-block fs-6'>{r.ReserveCapacity}</span>
+                    <span className='text-dark tw-text-center fw-bold d-block fs-6'>
+                      {r.ReserveCapacity}
+                    </span>
                   </td>
                   <td className='text-end'>
-                    <span className='text-dark tw-text-center fw-bold d-block fs-6'>{r.BeginDate}</span>
+                    <span className='text-dark tw-text-center fw-bold d-block fs-6'>
+                      {r.BeginDate}
+                    </span>
                   </td>
                   <td className='text-end'>
-                    <span className='text-dark tw-text-center fw-bold d-block fs-6'>{r.EndDate}</span>
+                    <span className='text-dark tw-text-center fw-bold d-block fs-6'>
+                      {r.EndDate}
+                    </span>
                   </td>
                   <td className='text-end'>
-                    <span className='text-dark tw-text-center fw-bold d-block fs-6'>{r.LotteryDate}</span>
+                    <span className='text-dark tw-text-center fw-bold d-block fs-6'>
+                      {r.LotteryDate}
+                    </span>
                   </td>
                   <td>
                     <div className='d-flex justify-content-center flex-shrink-0 tw-gap-2'>
-                        {/* <button className='tw-p-1 tw-bg-indigo-500 tw-text-white tw-rounded-md tw-outline-none '>واجد شرایط</button>
-                        <button className='tw-p-1 tw-bg-pink-600 tw-text-white tw-rounded-md tw-outline-none '>فاقد شرایط</button>
-                        <button className='tw-p-1 tw-bg-green-600 tw-text-white tw-rounded-md tw-outline-none '>بهم ریختگی</button> */}
                       <a
                         href='#'
+                        data-toggle='tooltip'
+                        data-placement='top'
+                        title='لیست واجد شرایط ها'  
                         className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
                       >
                         <KTSVG
-                          path='/media/icons/duotune/general/gen019.svg'
+                          path='/media/icons/duotune/general/gen005.svg'
                           className='svg-icon-3'
                         />
                       </a>
                       <a
                         href='#'
+                        data-toggle='tooltip'
+                        data-placement='top'
+                        title='لیست فاقد شرایط ها'  
                         className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
                       >
-                        <KTSVG path='/media/icons/duotune/art/art005.svg' className='svg-icon-3' />
+                        <KTSVG path='/media/icons/duotune/general/gen009.svg' className='svg-icon-3' />
                       </a>
                       <a
                         href='#'
+                        data-toggle='tooltip'
+                        data-placement='top'
+                        title='بهم ریختگی'  
                         className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'
                       >
                         <KTSVG
-                          path='/media/icons/duotune/general/gen027.svg'
+                          path='/media/icons/duotune/general/gen011.svg'
                           className='svg-icon-3'
                         />
                       </a>
