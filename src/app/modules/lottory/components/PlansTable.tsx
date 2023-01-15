@@ -2,7 +2,6 @@
 import React from 'react'
 import {PlansTableModel} from '../../../../app/modules/lottory/core/_models'
 import {KTSVG} from '../../../../_cloner/helpers'
-import Tooltip from '../../../../_cloner/helpers/components/Tooltip'
 import {Table} from '../../../../_cloner/helpers/models/_table'
 
 type Props = {
@@ -38,9 +37,9 @@ const PlansTable: React.FC<Props> = ({className, columns, rows}) => {
             {/* begin::Table head */}
             <thead>
               <tr className='fw-bold text-muted'>
-                {columns.map((c) => (
-                  <th key={c.id} className='min-w-150px tw-text-center'>
-                    {c.name}
+                {columns.map((column) => (
+                  <th key={column.id} className='min-w-150px tw-text-center tw-font-VazirBold    '>
+                    {column.name}
                   </th>
                 ))}
               </tr>
@@ -48,60 +47,60 @@ const PlansTable: React.FC<Props> = ({className, columns, rows}) => {
             {/* end::Table head */}
             {/* begin::Table body */}
             <tbody>
-              {rows.map((r) => (
+              {rows.map((row) => (
                 <tr>
                   <td>
                     <div className='d-flex tw-justify-center align-items-center'>
                       <div className='d-flex justify-content-start flex-column'>
                         <a href='#' className='text-dark fw-bold text-hover-primary fs-6'>
-                          {r.PlansNumber}
+                          {row.PlansNumber}
                         </a>
                       </div>
                     </div>
                   </td>
                   <td>
                     <span className='text-dark tw-text-center fw-bold d-block fs-6'>
-                      {r.NoticeNumber}
+                      {row.NoticeNumber}
                     </span>
                   </td>
                   <td className='text-end'>
                     <span className='text-dark tw-text-center fw-bold d-block fs-6'>
-                      {r.NoticeRowNumber}
+                      {row.NoticeRowNumber}
                     </span>
                   </td>
                   <td className='text-end'>
                     <span className='text-dark tw-text-center fw-bold d-block fs-6'>
-                      {r.CircularNumber}
+                      {row.CircularNumber}
                     </span>
                   </td>
                   <td className='text-end'>
                     <span className='text-dark tw-text-center fw-bold d-block fs-6'>
-                      {r.CarName}
+                      {row.CarName}
                     </span>
                   </td>
                   <td className='text-end'>
                     <span className='text-dark tw-text-center fw-bold d-block fs-6'>
-                      {r.OriginalCapacity}
+                      {row.OriginalCapacity}
                     </span>
                   </td>
                   <td className='text-end'>
                     <span className='text-dark tw-text-center fw-bold d-block fs-6'>
-                      {r.ReserveCapacity}
+                      {row.ReserveCapacity}
                     </span>
                   </td>
                   <td className='text-end'>
                     <span className='text-dark tw-text-center fw-bold d-block fs-6'>
-                      {r.BeginDate}
+                      {row.BeginDate}
                     </span>
                   </td>
                   <td className='text-end'>
                     <span className='text-dark tw-text-center fw-bold d-block fs-6'>
-                      {r.EndDate}
+                      {row.EndDate}
                     </span>
                   </td>
                   <td className='text-end'>
                     <span className='text-dark tw-text-center fw-bold d-block fs-6'>
-                      {r.LotteryDate}
+                      {row.LotteryDate}
                     </span>
                   </td>
                   <td>
@@ -111,7 +110,7 @@ const PlansTable: React.FC<Props> = ({className, columns, rows}) => {
                         data-toggle='tooltip'
                         data-placement='top'
                         title='لیست واجد شرایط ها'  
-                        className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
+                        className='btn btn-icon btn-bg-light btn-active-color-primary btn-lg me-1'
                       >
                         <KTSVG
                           path='/media/icons/duotune/general/gen005.svg'
@@ -123,7 +122,7 @@ const PlansTable: React.FC<Props> = ({className, columns, rows}) => {
                         data-toggle='tooltip'
                         data-placement='top'
                         title='لیست فاقد شرایط ها'  
-                        className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
+                        className='btn btn-icon btn-bg-light btn-active-color-primary btn-lg me-1'
                       >
                         <KTSVG path='/media/icons/duotune/general/gen009.svg' className='svg-icon-3' />
                       </a>
@@ -132,7 +131,7 @@ const PlansTable: React.FC<Props> = ({className, columns, rows}) => {
                         data-toggle='tooltip'
                         data-placement='top'
                         title='بهم ریختگی'  
-                        className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'
+                        className='btn btn-icon btn-bg-light btn-active-color-primary btn-lg'
                       >
                         <KTSVG
                           path='/media/icons/duotune/general/gen011.svg'

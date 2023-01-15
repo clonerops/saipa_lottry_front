@@ -11,3 +11,8 @@ export interface PlansTableModel {
     EndDate: string, 
     LotteryDate: string
 }
+
+export interface PlansSelectOptionModel {
+    Id: number
+    Title: string 
+}
