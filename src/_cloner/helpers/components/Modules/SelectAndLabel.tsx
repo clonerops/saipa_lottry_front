@@ -5,7 +5,7 @@ interface IProps {
   title: string
   width?: string
   children: React.ReactNode
-  setSelected: React.Dispatch<React.SetStateAction<string>>
+  setSelected: React.Dispatch<React.SetStateAction<number>>
 }
 
 const SelectAndLabel: FC<IProps> = ({children, setSelected, title, width = 'w-[14rem]'}) => {
@@ -15,7 +15,7 @@ const SelectAndLabel: FC<IProps> = ({children, setSelected, title, width = 'w-[1
         {title}:
       </label>
       <select
-        onChange={(e) => setSelected(e.target.value)}
+        onChange={(e) => setSelected(parseInt(e.target.value))}
         // onChange={(e) => console.log(e.target.value)}
         className={`form-select tw-border tw-border-gray-400 tw-form-select-sm tw-form-select-white tw-p-2 ${width}`}
         defaultValue={1}
