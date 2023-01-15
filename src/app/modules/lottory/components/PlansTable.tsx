@@ -53,56 +53,75 @@ const PlansTable: React.FC<Props> = ({className, columns, rows}) => {
                     <div className='d-flex tw-justify-center align-items-center'>
                       <div className='d-flex justify-content-start flex-column'>
                         <a href='#' className='text-dark fw-bold text-hover-primary fs-6'>
-                          {row.PlansNumber}
+                          {row.lotterySalePlan}
                         </a>
                       </div>
                     </div>
                   </td>
                   <td>
-                    <span className='text-dark tw-text-center fw-bold d-block fs-6'>
-                      {row.NoticeNumber}
-                    </span>
+                    <div className='d-flex tw-justify-center align-items-center'>
+                      <div className='d-flex justify-content-start flex-column'>
+                        <a href='#' className='text-dark fw-bold text-hover-primary fs-6'>
+                          {row.announceNo}
+                        </a>
+                      </div>
+                    </div>
                   </td>
-                  <td className='text-end'>
-                    <span className='text-dark tw-text-center fw-bold d-block fs-6'>
-                      {row.NoticeRowNumber}
-                    </span>
+                  <td>
+                    <div className='d-flex tw-justify-center align-items-center'>
+                      <div className='d-flex justify-content-start flex-column'>
+                        <a href='#' className='text-dark fw-bold text-hover-primary fs-6'>
+                          {row.announceRowNo}
+                        </a>
+                      </div>
+                    </div>
                   </td>
-                  <td className='text-end'>
-                    <span className='text-dark tw-text-center fw-bold d-block fs-6'>
-                      {row.CircularNumber}
-                    </span>
+                  <td>
+                    <div className='d-flex tw-justify-center align-items-center'>
+                      <div className='d-flex justify-content-start flex-column'>
+                        <a href='#' className='text-dark fw-bold text-hover-primary fs-6'>
+                          {row.circulationNo}
+                        </a>
+                      </div>
+                    </div>
                   </td>
-                  <td className='text-end'>
-                    <span className='text-dark tw-text-center fw-bold d-block fs-6'>
-                      {row.CarName}
-                    </span>
+                  <td>
+                    <div className='d-flex tw-justify-center align-items-center'>
+                      <div className='d-flex justify-content-start flex-column'>
+                        <a href='#' className='text-dark fw-bold text-hover-primary fs-6'>
+                          {row.carRow}
+                        </a>
+                      </div>
+                    </div>
                   </td>
-                  <td className='text-end'>
-                    <span className='text-dark tw-text-center fw-bold d-block fs-6'>
-                      {row.OriginalCapacity}
-                    </span>
+                  <td>
+                    <div className='d-flex tw-justify-center align-items-center'>
+                      <div className='d-flex justify-content-start flex-column'>
+                        <a href='#' className='text-dark fw-bold text-hover-primary fs-6'>
+                          {row.mainCapacity}
+                        </a>
+                      </div>
+                    </div>
                   </td>
-                  <td className='text-end'>
-                    <span className='text-dark tw-text-center fw-bold d-block fs-6'>
-                      {row.ReserveCapacity}
-                    </span>
+                  <td>
+                    <div className='d-flex tw-justify-center align-items-center'>
+                      <div className='d-flex justify-content-start flex-column'>
+                        <a href='#' className='text-dark fw-bold text-hover-primary fs-6'>
+                          {row.reserveCapacity}
+                        </a>
+                      </div>
+                    </div>
                   </td>
-                  <td className='text-end'>
-                    <span className='text-dark tw-text-center fw-bold d-block fs-6'>
-                      {row.BeginDate}
-                    </span>
+                  <td>
+                    <div className='d-flex tw-justify-center align-items-center'>
+                      <div className='d-flex justify-content-start flex-column'>
+                        <a href='#' className='text-dark fw-bold text-hover-primary fs-6'>
+                          1401/10/25
+                        </a>
+                      </div>
+                    </div>
                   </td>
-                  <td className='text-end'>
-                    <span className='text-dark tw-text-center fw-bold d-block fs-6'>
-                      {row.EndDate}
-                    </span>
-                  </td>
-                  <td className='text-end'>
-                    <span className='text-dark tw-text-center fw-bold d-block fs-6'>
-                      {row.LotteryDate}
-                    </span>
-                  </td>
+
                   <td>
                     <div className='d-flex justify-content-center flex-shrink-0 tw-gap-2'>
                       <a

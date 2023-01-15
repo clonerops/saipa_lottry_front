@@ -1,18 +1,24 @@
 export interface PlansTableModel {
-    Id: number, 
-    PlansNumber: number, 
-    NoticeNumber: number, 
-    NoticeRowNumber: number, 
-    CircularNumber: number, 
-    CarName: string, 
-    OriginalCapacity: number, 
-    ReserveCapacity: number, 
-    BeginDate: string, 
-    EndDate: string, 
-    LotteryDate: string
+    id: number, 
+    lotterySalePlan: string
+    announceNo: number, 
+    announceRowNo: number, 
+    circulationNo: number, 
+    carRow: number, 
+    mainCapacity: number, 
+    reserveCapacity: number, 
+    winDistance: number, 
+    lotteryBaseNo: number, 
+    description: string, 
 }
 
 export interface PlansSelectOptionModel {
     Id: number
     Title: string 
+}
+
+export interface SalePlansModel {
+    id: number
+    salePlanDescription: string
+    data: []
 }

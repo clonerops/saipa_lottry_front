@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 axios.defaults.headers.post['Content-Type'] = 'application/json'
-axios.defaults.headers.common['accept'] = '*/*'
+// axios.defaults.headers.common['accept'] = '*/*'
 
 const http = {
   get: axios.get,
