@@ -3,30 +3,38 @@ import {Card5} from '../../../_cloner/partials/content/cards/Card5'
 import PlanColumns from '../../../_cloner/helpers/grid-col-value/plans.json'
 import {PlansTable} from './components/PlansTable'
 import {useEffect, useState} from 'react'
-import {retrieveSalePlansDetailsRequest, retrieveSalePlansRequest} from './core/_requests'
-import {SalePlansModel} from './core/_models'
+import {
+  retrieveSalePlansDetailsRequest,
+  retrieveSalePlansDjangoRequest,
+  retrieveSalePlansRequest,
+} from './core/_requests'
+import {SalePlansDjangoModel, SalePlansModel} from './core/_models'
 import Backdrop from '../../../_cloner/helpers/components/Backdrop'
 
 const Lottery = () => {
-  const [salePlans, setSalePlans] = useState<SalePlansModel[]>([])
+  // const [salePlans, setSalePlans] = useState<SalePlansModel[]>([])
+  const [salePlans, setSalePlans] = useState<SalePlansDjangoModel[]>([])
   const [salePlansDetails, setSalePlansDetails] = useState([])
   const [selected, setSelected] = useState<number>(21)
   const [loading, setLoading] = useState<boolean>(false)
 
   const retrieveSalePlans = async () => {
     try {
-      const res = await retrieveSalePlansRequest()
-      setSalePlans(res.data.data)
+      // const res = await retrieveSalePlansRequest()
+      const res = await retrieveSalePlansDjangoRequest()
+      // Django
+      setSalePlans(res.data)
+      // setSalePlans(res.data.data)
     } catch (error) {
       console.log(error)
     }
   }
-  const retrieveSalePlansDetails = async() => {
+  const retrieveSalePlansDetails = async () => {
     try {
       const res = await retrieveSalePlansDetailsRequest(selected)
       setSalePlansDetails(res.data.data)
     } catch (error) {
-        console.log(error)
+      console.log(error)
     }
   }
 
@@ -35,6 +43,7 @@ const Lottery = () => {
     retrieveSalePlansDetails()
   }, [])
 
+  console.log('selected', selected)
 
   return (
     <div>
@@ -47,8 +56,14 @@ const Lottery = () => {
           <section className='tw-grid tw-grid-cols-2'>
             <SelectAndLabel title='طرح های فروش' setSelected={setSelected}>
               {salePlans?.map((salePlan) => (
-                <option placeholder='طرح مورد نظر را انتخاب کنید' selected={false} className='tw-font-Vazir' key={salePlan.id} value={salePlan.id}>
-                  {salePlan.salePlanDescription}
+                <option
+                  placeholder='طرح مورد نظر را انتخاب کنید'
+                  selected={false}
+                  className='tw-font-Vazir'
+                  key={salePlan.Id}
+                  value={salePlan.Id}
+                >
+                  {salePlan.Description}
                 </option>
               ))}
             </SelectAndLabel>

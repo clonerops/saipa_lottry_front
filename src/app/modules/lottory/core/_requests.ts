@@ -1,24 +1,16 @@
-// import axios from 'axios'
-
-// const API_URL = process.env.REACT_APP_API_URL
-// const LOTTERY_API_URL = process.env.REACT_APP_API_URL_LOTTERY
-
-// export const REQUEST_PASSWORD_URL = `${API_URL}/forgot_password`
-// console.log(API_URL)
-
-// export function requestPassword(email: string) {
-//   return axios.post<{result: boolean}>(REQUEST_PASSWORD_URL, {
-//     email,
-//   })
-// }
-
 import http from '../../../../_cloner/helpers/services/http'
-import { SalePlansModel } from './_models'
+import { SalePlansDjangoModel, SalePlansModel } from './_models'
 
 const LOTTERY_API_URL = process.env.REACT_APP_API_URL_LOTTERY
 
 export const RETRIEVE_SALE_PLANS_URL = `${LOTTERY_API_URL}/Lottery`
 export const RETRIEVE_SALE_PLANS_DETAILS_URL = `${LOTTERY_API_URL}/Lottery/GetSalePlanDetails`
+
+export const LOTTERY_VALID_APPLICANT = `${LOTTERY_API_URL}/LotteryExcelReport/GetLotteryValidApplicants`
+export const LOTTERY_VALID_APPLICANT_BY_CAR_NAME = `${LOTTERY_API_URL}/LotteryExcelReport/GetLotteryValidApplicantsByCarName`
+export const LOTTERY_VALID_APPLICANT_BY_CAR_ROW = `${LOTTERY_API_URL}/LotteryExcelReport/GetLotValidApplicantsByAnncRowAndAnncCarRow`
+
+// Django
 
 export function retrieveSalePlansRequest() {
   return http.get<SalePlansModel>(RETRIEVE_SALE_PLANS_URL)
@@ -26,4 +18,33 @@ export function retrieveSalePlansRequest() {
 
 export function retrieveSalePlansDetailsRequest(id: number) {
   return http.get(RETRIEVE_SALE_PLANS_DETAILS_URL+`/${id}`)
+}
+
+// Download Lottery Excel Files
+export function downloadLotteryValidApplicant(id: number) {
+  return http.get(LOTTERY_VALID_APPLICANT+`/${id}`)
+}
+export function downloadLotteryValidApplicantByCarName(id: number) {
+  return http.get(LOTTERY_VALID_APPLICANT_BY_CAR_NAME+`/${id}`)
+}
+export function downloadLotteryValidApplicantByCarRow(id: number) {
+  return http.get(LOTTERY_VALID_APPLICANT_BY_CAR_ROW+`/${id}`)
+}
+
+
+
+
+
+
+
+
+
+
+// Django
+const LOTTERY_API_URL_DJANGO = process.env.REACT_APP_API_URL_DJANGO_LOTTERY
+
+export const RETRIEVE_SALE_PLANS_URL_DJANGO = `${LOTTERY_API_URL_DJANGO}/saleplans`
+
+export function retrieveSalePlansDjangoRequest() {
+  return http.get(RETRIEVE_SALE_PLANS_URL_DJANGO)
 }

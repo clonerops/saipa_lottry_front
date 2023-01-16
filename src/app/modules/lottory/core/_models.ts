@@ -22,3 +22,10 @@ export interface SalePlansModel {
     salePlanDescription: string
     data: []
 }
+
+// Django
+export interface SalePlansDjangoModel {
+    Id: number
+    Description: string
+    data: []
+}
