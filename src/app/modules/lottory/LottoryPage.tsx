@@ -5,11 +5,13 @@ import {PlansTable} from './components/PlansTable'
 import {useEffect, useState} from 'react'
 import {retrieveSalePlansDetailsRequest, retrieveSalePlansRequest} from './core/_requests'
 import {SalePlansModel} from './core/_models'
+import Backdrop from '../../../_cloner/helpers/components/Backdrop'
 
 const Lottery = () => {
   const [salePlans, setSalePlans] = useState<SalePlansModel[]>([])
   const [salePlansDetails, setSalePlansDetails] = useState([])
   const [selected, setSelected] = useState<number>(21)
+  const [loading, setLoading] = useState<boolean>(false)
 
   const retrieveSalePlans = async () => {
     try {
@@ -24,7 +26,7 @@ const Lottery = () => {
       const res = await retrieveSalePlansDetailsRequest(selected)
       setSalePlansDetails(res.data.data)
     } catch (error) {
-      console.log(error)
+        console.log(error)
     }
   }
 
@@ -36,6 +38,7 @@ const Lottery = () => {
 
   return (
     <div>
+      {loading && <Backdrop loading={loading} />}
       <section>
         <Card5
           image='/media/svg/brand-logos/github.svg'
@@ -44,7 +47,7 @@ const Lottery = () => {
           <section className='tw-grid tw-grid-cols-2'>
             <SelectAndLabel title='طرح های فروش' setSelected={setSelected}>
               {salePlans?.map((salePlan) => (
-                <option selected={false} className='tw-font-Vazir' key={salePlan.id} value={salePlan.id}>
+                <option placeholder='طرح مورد نظر را انتخاب کنید' selected={false} className='tw-font-Vazir' key={salePlan.id} value={salePlan.id}>
                   {salePlan.salePlanDescription}
                 </option>
               ))}

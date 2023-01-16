@@ -124,8 +124,7 @@ const PlansTable: React.FC<Props> = ({className, columns, rows}) => {
 
                   <td>
                     <div className='d-flex justify-content-center flex-shrink-0 tw-gap-2'>
-                      <a
-                        href='#'
+                      <button
                         data-toggle='tooltip'
                         data-placement='top'
                         title='لیست واجد شرایط ها'  
@@ -135,7 +134,7 @@ const PlansTable: React.FC<Props> = ({className, columns, rows}) => {
                           path='/media/icons/duotune/general/gen005.svg'
                           className='svg-icon-3'
                         />
-                      </a>
+                      </button>
                       <a
                         href='#'
                         data-toggle='tooltip'

@@ -1,5 +1,4 @@
 import {FC} from 'react'
-import {SelectModel} from '../../models/_select'
 
 interface IProps {
   title: string
@@ -16,7 +15,6 @@ const SelectAndLabel: FC<IProps> = ({children, setSelected, title, width = 'w-[1
       </label>
       <select
         onChange={(e) => setSelected(parseInt(e.target.value))}
-        // onChange={(e) => console.log(e.target.value)}
         className={`form-select tw-border tw-border-gray-400 tw-form-select-sm tw-form-select-white tw-p-2 ${width}`}
         defaultValue={1}
       >
