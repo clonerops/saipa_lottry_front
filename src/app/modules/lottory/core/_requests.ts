@@ -44,7 +44,12 @@ export function downloadLotteryValidApplicantByCarRow(id: number) {
 const LOTTERY_API_URL_DJANGO = process.env.REACT_APP_API_URL_DJANGO_LOTTERY
 
 export const RETRIEVE_SALE_PLANS_URL_DJANGO = `${LOTTERY_API_URL_DJANGO}/saleplans`
+export const RETRIEVE_SALE_DETAIL_PLANS_URL_DJANGO = `${LOTTERY_API_URL_DJANGO}/saleplans`
 
 export function retrieveSalePlansDjangoRequest() {
   return http.get(RETRIEVE_SALE_PLANS_URL_DJANGO)
+}
+
+export function retrieveSalePlansDetailsDjangoRequest(id: number) {
+  return http.get(RETRIEVE_SALE_DETAIL_PLANS_URL_DJANGO+`/${id}`)
 }

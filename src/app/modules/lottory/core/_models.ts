@@ -1,16 +1,35 @@
+// main
 export interface PlansTableModel {
-    id: number, 
+    id: number,
     lotterySalePlan: string
-    announceNo: number, 
-    announceRowNo: number, 
-    circulationNo: number, 
-    carRow: number, 
-    mainCapacity: number, 
-    reserveCapacity: number, 
-    winDistance: number, 
-    lotteryBaseNo: number, 
-    description: string, 
+    lotterySalePlanId: number
+    announceNo: number
+    announceRowNo: number 
+    circulationNo: number 
+    carRow: number 
+    mainCapacity: number 
+    reserveCapacity: number 
+    winDistance: number 
+    lotteryBaseNo: number 
+    description: string
 }
+
+// Django
+// export interface PlansTableModel {
+//     Id: number, 
+//     LotterySalePlan: string
+//     AnnounceNo: number, 
+//     AnnounceRowNo: number, 
+//     CirculationNo: number, 
+//     CarRow: number, 
+//     MainCapacity: number, 
+//     ReserveCapacity: number, 
+//     WinDistance: number, 
+//     LotteryBaseNo: number, 
+//     Description: string, 
+// }
+
+
 
 export interface PlansSelectOptionModel {
     Id: number

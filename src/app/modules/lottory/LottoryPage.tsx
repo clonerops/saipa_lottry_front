@@ -4,6 +4,7 @@ import PlanColumns from '../../../_cloner/helpers/grid-col-value/plans.json'
 import {PlansTable} from './components/PlansTable'
 import {useEffect, useState} from 'react'
 import {
+  retrieveSalePlansDetailsDjangoRequest,
   retrieveSalePlansDetailsRequest,
   retrieveSalePlansDjangoRequest,
   retrieveSalePlansRequest,
@@ -12,19 +13,19 @@ import {SalePlansDjangoModel, SalePlansModel} from './core/_models'
 import Backdrop from '../../../_cloner/helpers/components/Backdrop'
 
 const Lottery = () => {
-  // const [salePlans, setSalePlans] = useState<SalePlansModel[]>([])
-  const [salePlans, setSalePlans] = useState<SalePlansDjangoModel[]>([])
+  const [salePlans, setSalePlans] = useState<SalePlansModel[]>([])
+  // const [salePlans, setSalePlans] = useState<SalePlansDjangoModel[]>([])
   const [salePlansDetails, setSalePlansDetails] = useState([])
-  const [selected, setSelected] = useState<number>(21)
+  const [selected, setSelected] = useState<number>(5)
   const [loading, setLoading] = useState<boolean>(false)
 
   const retrieveSalePlans = async () => {
     try {
-      // const res = await retrieveSalePlansRequest()
-      const res = await retrieveSalePlansDjangoRequest()
+      const res = await retrieveSalePlansRequest()
+      setSalePlans(res.data.data)
       // Django
-      setSalePlans(res.data)
-      // setSalePlans(res.data.data)
+      // const res = await retrieveSalePlansDjangoRequest()
+      // setSalePlans(res.data)
     } catch (error) {
       console.log(error)
     }
@@ -33,6 +34,11 @@ const Lottery = () => {
     try {
       const res = await retrieveSalePlansDetailsRequest(selected)
       setSalePlansDetails(res.data.data)
+      // Django
+      // const res = await retrieveSalePlansDetailsDjangoRequest(selected)
+      // console.log('res', res)
+      // setSalePlansDetails(res.data)
+
     } catch (error) {
       console.log(error)
     }
@@ -41,9 +47,8 @@ const Lottery = () => {
   useEffect(() => {
     retrieveSalePlans()
     retrieveSalePlansDetails()
-  }, [])
+  }, [selected])
 
-  console.log('selected', selected)
 
   return (
     <div>
@@ -60,10 +65,10 @@ const Lottery = () => {
                   placeholder='طرح مورد نظر را انتخاب کنید'
                   selected={false}
                   className='tw-font-Vazir'
-                  key={salePlan.Id}
-                  value={salePlan.Id}
+                  key={salePlan.id}
+                  value={salePlan.id}
                 >
-                  {salePlan.Description}
+                  {salePlan.salePlanDescription}
                 </option>
               ))}
             </SelectAndLabel>

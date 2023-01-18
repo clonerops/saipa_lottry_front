@@ -1,7 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react'
+import React, {useState} from 'react'
 import {PlansTableModel} from '../../../../app/modules/lottory/core/_models'
 import {KTSVG} from '../../../../_cloner/helpers'
+import Modal from '../../../../_cloner/helpers/components/Modal'
+import ActionButton from '../../../../_cloner/helpers/components/Modules/ActionButton'
+import InputAndLabel from '../../../../_cloner/helpers/components/Modules/InputAndLabel'
 import {Table} from '../../../../_cloner/helpers/models/_table'
 
 type Props = {
@@ -11,6 +14,12 @@ type Props = {
 }
 
 const PlansTable: React.FC<Props> = ({className, columns, rows}) => {
+  const [showModal, setShowModal] = useState<boolean>(false)
+
+  const handleShowLotteryInput = (): void => {
+    setShowModal(true)
+  }
+
   return (
     <div className={`card ${className}`}>
       {/* begin::Header */}
@@ -33,6 +42,11 @@ const PlansTable: React.FC<Props> = ({className, columns, rows}) => {
         {/* begin::Table container */}
         <div className='table-responsive'>
           {/* begin::Table */}
+          {rows.length == 0 && (
+            <section className='tw-bg-sky-200 tw-w-full tw-rounded-lg tw-py-4 tw-px-8 tw-text-black tw-font-VazirBold tw-text-lg tw-mb-8'>
+              لطفا یکی از طرح های فروش سایپا را انتخاب نمایید!
+            </section>
+          )}
           <table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4'>
             {/* begin::Table head */}
             <thead>
@@ -53,7 +67,7 @@ const PlansTable: React.FC<Props> = ({className, columns, rows}) => {
                     <div className='d-flex tw-justify-center align-items-center'>
                       <div className='d-flex justify-content-start flex-column'>
                         <a href='#' className='text-dark fw-bold text-hover-primary fs-6'>
-                          {row.lotterySalePlan}
+                          {row.lotterySalePlanId}
                         </a>
                       </div>
                     </div>
@@ -127,7 +141,7 @@ const PlansTable: React.FC<Props> = ({className, columns, rows}) => {
                       <button
                         data-toggle='tooltip'
                         data-placement='top'
-                        title='لیست واجد شرایط ها'  
+                        title='لیست واجد شرایط ها'
                         className='btn btn-icon btn-bg-light btn-active-color-primary btn-lg me-1'
                       >
                         <KTSVG
@@ -139,16 +153,19 @@ const PlansTable: React.FC<Props> = ({className, columns, rows}) => {
                         href='#'
                         data-toggle='tooltip'
                         data-placement='top'
-                        title='لیست فاقد شرایط ها'  
+                        title='لیست فاقد شرایط ها'
                         className='btn btn-icon btn-bg-light btn-active-color-primary btn-lg me-1'
                       >
-                        <KTSVG path='/media/icons/duotune/general/gen009.svg' className='svg-icon-3' />
+                        <KTSVG
+                          path='/media/icons/duotune/general/gen009.svg'
+                          className='svg-icon-3'
+                        />
                       </a>
                       <a
                         href='#'
                         data-toggle='tooltip'
                         data-placement='top'
-                        title='بهم ریختگی'  
+                        title='بهم ریختگی'
                         className='btn btn-icon btn-bg-light btn-active-color-primary btn-lg'
                       >
                         <KTSVG
@@ -156,6 +173,15 @@ const PlansTable: React.FC<Props> = ({className, columns, rows}) => {
                           className='svg-icon-3'
                         />
                       </a>
+                      <button
+                        data-toggle='tooltip'
+                        data-placement='top'
+                        title='قرعه کشی'
+                        onClick={handleShowLotteryInput}
+                        className='tw-bg-orange-600 tw-font-VazirBold tw-text-white tw-rounded-md tw-w-[80px] hover:tw-bg-orange-700 tw-transition'
+                      >
+                        قرعه کشی
+                      </button>
                     </div>
                   </td>
                 </tr>
@@ -166,6 +192,12 @@ const PlansTable: React.FC<Props> = ({className, columns, rows}) => {
           {/* end::Table */}
         </div>
         {/* end::Table container */}
+      {/* start: Modal Lottery */}
+      <Modal showModal={showModal} setShowModal={setShowModal}>
+        <InputAndLabel title='عدد گردونه' lottery />
+        <ActionButton title='اجرا' />
+      </Modal>
+      {/* end: Modal Lottery */}
       </div>
       {/* begin::Body */}
     </div>
