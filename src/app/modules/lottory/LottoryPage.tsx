@@ -74,7 +74,7 @@ const Lottery = () => {
             </SelectAndLabel>
           </section>
           <section>
-            <PlansTable className='' columns={PlanColumns} rows={salePlansDetails} />
+            <PlansTable className='' setLoad={setLoading} columns={PlanColumns} rows={salePlansDetails} />
           </section>
         </Card5>
       </section>

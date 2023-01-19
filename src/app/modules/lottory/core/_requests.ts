@@ -1,14 +1,15 @@
 import http from '../../../../_cloner/helpers/services/http'
-import { SalePlansDjangoModel, SalePlansModel } from './_models'
+import {SalePlansDjangoModel, SalePlansModel} from './_models'
 
 const LOTTERY_API_URL = process.env.REACT_APP_API_URL_LOTTERY
 
 export const RETRIEVE_SALE_PLANS_URL = `${LOTTERY_API_URL}/Lottery`
 export const RETRIEVE_SALE_PLANS_DETAILS_URL = `${LOTTERY_API_URL}/Lottery/GetSalePlanDetails`
+export const LOTTERY_MESS_APPLICANTS = `${LOTTERY_API_URL}/Lottery/GetLotteryValidApplicants`
 
+export const LOTTERY_VALID_ALL_APPLICANT = `${LOTTERY_API_URL}/LotteryExcelReport/GetLotteryAllApplicants`
 export const LOTTERY_VALID_APPLICANT = `${LOTTERY_API_URL}/LotteryExcelReport/GetLotteryValidApplicants`
-export const LOTTERY_VALID_APPLICANT_BY_CAR_NAME = `${LOTTERY_API_URL}/LotteryExcelReport/GetLotteryValidApplicantsByCarName`
-export const LOTTERY_VALID_APPLICANT_BY_CAR_ROW = `${LOTTERY_API_URL}/LotteryExcelReport/GetLotValidApplicantsByAnncRowAndAnncCarRow`
+export const LOTTERY_INVALID_APPLICANT = `${LOTTERY_API_URL}/LotteryExcelReport/GetLotInValidApplicants`
 
 // Django
 
@@ -17,28 +18,37 @@ export function retrieveSalePlansRequest() {
 }
 
 export function retrieveSalePlansDetailsRequest(id: number) {
-  return http.get(RETRIEVE_SALE_PLANS_DETAILS_URL+`/${id}`)
+  return http.get(RETRIEVE_SALE_PLANS_DETAILS_URL + `/${id}`)
+}
+export function lotteryMessApplicants(data: object) {
+  return http.post(LOTTERY_MESS_APPLICANTS, JSON.stringify(data))
 }
 
 // Download Lottery Excel Files
+export function downloadLotteryAllValidApplicant(id: number) {
+  return http.get(LOTTERY_VALID_ALL_APPLICANT + `/${id}`, {
+    responseType: 'arraybuffer',
+    headers: {
+      'Content-Type': 'blob',
+    },
+  })
+}
 export function downloadLotteryValidApplicant(id: number) {
-  return http.get(LOTTERY_VALID_APPLICANT+`/${id}`)
+  return http.get(LOTTERY_VALID_APPLICANT + `/${id}`, {
+    responseType: 'arraybuffer',
+    headers: {
+      'Content-Type': 'blob',
+    },
+  })
 }
-export function downloadLotteryValidApplicantByCarName(id: number) {
-  return http.get(LOTTERY_VALID_APPLICANT_BY_CAR_NAME+`/${id}`)
+export function downloadLotteryInValidApplicant(id: number) {
+  return http.get(LOTTERY_INVALID_APPLICANT + `/${id}`, {
+    responseType: 'arraybuffer',
+    headers: {
+      'Content-Type': 'blob',
+    },
+  })
 }
-export function downloadLotteryValidApplicantByCarRow(id: number) {
-  return http.get(LOTTERY_VALID_APPLICANT_BY_CAR_ROW+`/${id}`)
-}
-
-
-
-
-
-
-
-
-
 
 // Django
 const LOTTERY_API_URL_DJANGO = process.env.REACT_APP_API_URL_DJANGO_LOTTERY
@@ -51,5 +61,5 @@ export function retrieveSalePlansDjangoRequest() {
 }
 
 export function retrieveSalePlansDetailsDjangoRequest(id: number) {
-  return http.get(RETRIEVE_SALE_DETAIL_PLANS_URL_DJANGO+`/${id}`)
+  return http.get(RETRIEVE_SALE_DETAIL_PLANS_URL_DJANGO + `/${id}`)
 }

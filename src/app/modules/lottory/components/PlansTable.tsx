@@ -5,21 +5,94 @@ import {KTSVG} from '../../../../_cloner/helpers'
 import Modal from '../../../../_cloner/helpers/components/Modal'
 import ActionButton from '../../../../_cloner/helpers/components/Modules/ActionButton'
 import InputAndLabel from '../../../../_cloner/helpers/components/Modules/InputAndLabel'
+import { DownloadExcelFile } from '../../../../_cloner/helpers/downloadExcel'
 import {Table} from '../../../../_cloner/helpers/models/_table'
+import { downloadLotteryAllValidApplicant, downloadLotteryInValidApplicant, downloadLotteryValidApplicant, lotteryMessApplicants } from '../core/_requests'
 
 type Props = {
   className: string
   columns: Table[]
   rows: PlansTableModel[]
-}
+  setLoad?:  React.Dispatch<React.SetStateAction<boolean>> | undefined
+} 
 
-const PlansTable: React.FC<Props> = ({className, columns, rows}) => {
+const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
+  //start: Define States
   const [showModal, setShowModal] = useState<boolean>(false)
+  //end: Define States
 
+  // start: Define Functions
   const handleShowLotteryInput = (): void => {
     setShowModal(true)
   }
-
+  
+  const DownloadAllApplicant = async (salePlanId: number) => {
+    if(setLoad) setLoad(true)
+    try {
+      const res = await downloadLotteryAllValidApplicant(salePlanId)
+      const outputFilename = `LotteryAllValidApplicants${Date.now()}.csv`;
+      DownloadExcelFile(res.data, outputFilename)
+      if(setLoad) setLoad(false)
+    } catch (error) {
+      console.log(error)
+      if(setLoad) setLoad(false)
+    }
+  }
+  const DownloadValidApplicant = async (salePlanId: number) => {
+    if(setLoad) setLoad(true)
+    try {
+      const res = await downloadLotteryValidApplicant(salePlanId)
+      const outputFilename = `LotteryValidApplicants${Date.now()}.csv`;
+      DownloadExcelFile(res.data, outputFilename)
+      if(setLoad) setLoad(false)
+    } catch (error) {
+      console.log(error)
+      if(setLoad) setLoad(false)
+    }
+  }
+  const DownloadNotValidApplicant = async (salePlanId: number) => {
+    if(setLoad) setLoad(true)
+    try {
+      const res = await downloadLotteryInValidApplicant(salePlanId)
+      const outputFilename = `LotteryInValidApplicants${Date.now()}.csv`;
+      DownloadExcelFile(res.data, outputFilename)
+      if(setLoad) setLoad(false)
+    } catch (error) {
+      console.log(error)
+      if(setLoad) setLoad(false)
+    }
+  }
+  const MessValidApplicantList = (salePlanId: number, anncRow: number, anncCarRow: number) => {
+    if(setLoad) setLoad(true)
+    setTimeout(async () => {
+      const sendData = {
+        salePlanId: salePlanId,
+        anncRow: anncRow,
+        anncCarRow: anncCarRow
+      }
+      try {
+        const res = await lotteryMessApplicants(sendData)
+        if(setLoad) setLoad(false)
+        console.log(res)
+      } catch (error) {
+        if(setLoad) setLoad(false)
+        console.log(error)
+      }  
+    }, 2000)
+  }
+  
+  const Execution = (e: React.FormEvent<HTMLFormElement>): void => {
+    e.preventDefault()
+    if(setLoad) {
+      setLoad(true)
+      setShowModal(false)
+      setTimeout(() => {
+        setLoad(false)
+      }, 4000)
+    }
+  }
+  // end: Define Functions
+  
   return (
     <div className={`card ${className}`}>
       {/* begin::Header */}
@@ -52,7 +125,7 @@ const PlansTable: React.FC<Props> = ({className, columns, rows}) => {
             <thead>
               <tr className='fw-bold text-muted'>
                 {columns.map((column) => (
-                  <th key={column.id} className='min-w-150px tw-text-center tw-font-VazirBold    '>
+                  <th key={column.id} className='min-w-150px tw-text-center tw-font-VazirBold'>
                     {column.name}
                   </th>
                 ))}
@@ -141,38 +214,51 @@ const PlansTable: React.FC<Props> = ({className, columns, rows}) => {
                       <button
                         data-toggle='tooltip'
                         data-placement='top'
-                        title='لیست واجد شرایط ها'
+                        title='لیست کل متقاضیان'
+                        onClick={() => DownloadAllApplicant(row.lotterySalePlanId)}
                         className='btn btn-icon btn-bg-light btn-active-color-primary btn-lg me-1'
-                      >
+                        >
+                        <KTSVG
+                          path='/media/icons/duotune/communication/com006.svg'
+                          className='svg-icon-3'
+                          />
+                      </button>
+                      <button
+                        data-toggle='tooltip'
+                        data-placement='top'
+                        title='لیست واجد شرایط ها'
+                        onClick={() => DownloadValidApplicant(row.lotterySalePlanId)}
+                        className='btn btn-icon btn-bg-light btn-active-color-primary btn-lg me-1'
+                        >
                         <KTSVG
                           path='/media/icons/duotune/general/gen005.svg'
                           className='svg-icon-3'
-                        />
+                          />
                       </button>
-                      <a
-                        href='#'
+                      <button
                         data-toggle='tooltip'
                         data-placement='top'
                         title='لیست فاقد شرایط ها'
+                        onClick={() => DownloadNotValidApplicant(row.lotterySalePlanId)}
                         className='btn btn-icon btn-bg-light btn-active-color-primary btn-lg me-1'
                       >
                         <KTSVG
                           path='/media/icons/duotune/general/gen009.svg'
                           className='svg-icon-3'
                         />
-                      </a>
-                      <a
-                        href='#'
+                      </button>
+                      <button
                         data-toggle='tooltip'
                         data-placement='top'
                         title='بهم ریختگی'
+                        onClick={() => MessValidApplicantList(row.lotterySalePlanId, row.announceNo, row.announceRowNo)}
                         className='btn btn-icon btn-bg-light btn-active-color-primary btn-lg'
                       >
                         <KTSVG
                           path='/media/icons/duotune/general/gen011.svg'
                           className='svg-icon-3'
                         />
-                      </a>
+                      </button>
                       <button
                         data-toggle='tooltip'
                         data-placement='top'
@@ -192,12 +278,14 @@ const PlansTable: React.FC<Props> = ({className, columns, rows}) => {
           {/* end::Table */}
         </div>
         {/* end::Table container */}
-      {/* start: Modal Lottery */}
-      <Modal showModal={showModal} setShowModal={setShowModal}>
-        <InputAndLabel title='عدد گردونه' lottery />
-        <ActionButton title='اجرا' />
-      </Modal>
-      {/* end: Modal Lottery */}
+        {/* start: Modal Lottery */}
+        <Modal showModal={showModal} setShowModal={setShowModal}>
+          <form onSubmit={Execution}>
+            <InputAndLabel title='عدد گردونه' lottery />
+            <ActionButton title='اجرا' />
+          </form>
+        </Modal>
+        {/* end: Modal Lottery */}
       </div>
       {/* begin::Body */}
     </div>
