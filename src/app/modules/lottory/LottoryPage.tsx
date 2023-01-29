@@ -11,7 +11,6 @@ const Lottery = () => {
   const [salePlans, setSalePlans] = useState<SalePlansModel[]>([])
   // const [salePlans, setSalePlans] = useState<SalePlansDjangoModel[]>([])
   const [salePlansDetails, setSalePlansDetails] = useState([])
-  const [salePlanTitle, setSalePlanTitle] = useState<string>('')
   const [selected, setSelected] = useState<number>(0)
   const [loading, setLoading] = useState<boolean>(false)
 
@@ -78,7 +77,6 @@ const Lottery = () => {
           </section>
           <section>
             <PlansTable
-              title={salePlanTitle}
               className=''
               setLoad={setLoading}
               columns={PlanColumns}

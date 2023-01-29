@@ -24,25 +24,15 @@ type Props = {
   columns: Table[]
   rows: PlansTableModel[]
   setLoad?: React.Dispatch<React.SetStateAction<boolean>> | undefined
-  title: string
 }
 
-const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad, title}) => {
+const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
   // start: Define Hooks
   let navigate = useNavigate()
   // end: Define Hooks
-  //start: Define States
-  const [showModal, setShowModal] = useState<boolean>(false)
-  const [lotteryWinnersSalePlanDetailId, setLotteryWinnersSalePlanDetailId] = useState<number>(0)
-  const [lotteryRoundValue, setLotteryRoundValue] = useState<string>('')
-  //end: Define States
-
   // start: Define Functions
   const handleLotteryWinners = (salePlanDetailId: number, title: string): void => {
     navigate(`/startlottery/${salePlanDetailId}`, {state: {title: title}})
-    // setLotteryRoundValue('')
-    // setShowModal(true)
-    // setLotteryWinnersSalePlanDetailId(salePlanDetailId)
   }
   // start: Download Excel Files
   const DownloadAllApplicant = async (salePlanDetailId: number) => {
