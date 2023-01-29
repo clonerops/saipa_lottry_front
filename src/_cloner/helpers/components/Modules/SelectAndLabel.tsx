@@ -16,7 +16,7 @@ const SelectAndLabel: FC<IProps> = ({children, setSelected, title, width = 'w-[1
       <select
         onChange={(e) => setSelected(parseInt(e.target.value))}
         className={`form-select tw-border tw-border-gray-400 tw-form-select-sm tw-form-select-white tw-p-2 ${width}`}
-        defaultValue={1}
+        defaultValue={-1} 
       >
         {children}
       </select>{' '}

@@ -16,6 +16,8 @@ import {MetronicI18nProvider} from './_cloner/i18n/Metronici18n'
  **/
 import './_cloner/assets/css/style.rtl.css'
 import './_cloner/assets/css/tailwind.css'
+import 'react-toastify/dist/ReactToastify.css';
+
 // import './_cloner/assets/sass/plugins.scss'
 // import './_cloner/assets/sass/style.scss'
 import './_cloner/assets/sass/style.react.scss'
@@ -23,6 +25,7 @@ import './_cloner/assets/sass/style.react.scss'
 import {AppRoutes} from './app/routing/AppRoutes'
 import {AuthProvider, setupAxios} from './app/modules/auth'
 import {ThemeModeProvider} from './_cloner/partials/layout/theme-mode/ThemeModeProvider'
+import { ToastContainer } from 'react-toastify'
 /**
  * Creates `axios-mock-adapter` instance for provided `axios` instance, add
  * basic Metronic mocks and returns it.
@@ -46,6 +49,7 @@ if (container) {
         <ThemeModeProvider>
           <AuthProvider>
             <AppRoutes />
+            <ToastContainer />
           </AuthProvider>
         </ThemeModeProvider>
       </MetronicI18nProvider>

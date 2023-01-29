@@ -8,6 +8,7 @@ import {WithChildren} from '../../_cloner/helpers'
 
 const PrivateRoutes = () => {
   const LotteryPage = lazy(() => import('../modules/lottory/LottoryPage'))
+  const StartLottery = lazy(() => import('../modules/lottory/StartLottery'))
 
   return (
     <Routes>
@@ -22,6 +23,14 @@ const PrivateRoutes = () => {
           element={
             <SuspensedView>
               <LotteryPage />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='startlottery/:id'
+          element={
+            <SuspensedView>
+              <StartLottery />
             </SuspensedView>
           }
         />
