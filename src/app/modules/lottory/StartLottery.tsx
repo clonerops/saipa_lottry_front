@@ -36,12 +36,12 @@ const StartLottery = () => {
       setTimeout(async () => {
         const res = await lotteryWinners(data)
         try {
-          if (res.status == 200) {
+          if (res.status === 200) {
             const result = await downloadWinners(parseInt(id))
             const outputFilename = `LotteryWinners${Date.now()}.csv`
             DownloadExcelFile(result.data, outputFilename)
             setLoading(false)
-          } else if (res.data.Succeeded == false) {
+          } else if (res.data.Succeeded === false) {
             setLoading(false)
             toast.error(res.data.Message, {
               position: 'top-right',
@@ -71,6 +71,7 @@ const StartLottery = () => {
               width={400}
               height={400}
               className='tw-rounded-xl'
+              alt='saipa lottery'
             />
             <form onSubmit={Execution}>
               <InputAndLabel
@@ -88,6 +89,7 @@ const StartLottery = () => {
               width={400}
               height={400}
               className='tw-rounded-xl '
+              alt='saipa'
             />
           </section>
         </div>

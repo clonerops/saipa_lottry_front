@@ -18,7 +18,7 @@ const Lottery = () => {
     setLoading(true)
     try {
       const res = await retrieveSalePlansRequest()
-      if (res.status == 200) setLoading(false)
+      if (res.status === 200) setLoading(false)
       setSalePlans(res.data.data)
       // Django
       // const res = await retrieveSalePlansDjangoRequest()
@@ -32,7 +32,7 @@ const Lottery = () => {
     setLoading(true)
     try {
       const res = await retrieveSalePlansDetailsRequest(selected)
-      if (res.status == 200) setLoading(false)
+      if (res.status === 200) setLoading(false)
       setSalePlansDetails(res.data.data)
       // Django
       // const res = await retrieveSalePlansDetailsDjangoRequest(selected)
@@ -47,6 +47,7 @@ const Lottery = () => {
   useEffect(() => {
     retrieveSalePlans()
     retrieveSalePlansDetails()
+    // eslint-disable-next-line
   }, [selected])
 
   return (

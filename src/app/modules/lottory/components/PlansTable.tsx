@@ -1,12 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import axios from 'axios'
-import React, {useState} from 'react'
+import React from 'react'
 import {toast} from 'react-toastify'
 import {PlansTableModel} from '../../../../app/modules/lottory/core/_models'
 import {KTSVG} from '../../../../_cloner/helpers'
-import Modal from '../../../../_cloner/helpers/components/Modal'
-import ActionButton from '../../../../_cloner/helpers/components/Modules/ActionButton'
-import InputAndLabel from '../../../../_cloner/helpers/components/Modules/InputAndLabel'
 import {DownloadExcelFile} from '../../../../_cloner/helpers/downloadExcel'
 import {Table} from '../../../../_cloner/helpers/models/_table'
 import {useNavigate} from 'react-router-dom'
@@ -16,7 +12,6 @@ import {
   downloadLotteryValidApplicant,
   downloadWinners,
   lotteryMessApplicants,
-  lotteryWinners,
 } from '../core/_requests'
 
 type Props = {
@@ -300,10 +295,10 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
                         data-toggle='tooltip'
                         data-placement='top'
                         title='قرعه کشی'
-                        onClick={row.lotterySalePlanId == 1 ? () => handleLotteryWinners(row.id, row.description) : () => DownloadWinners(row.id)}
+                        onClick={row.lotterySalePlanId === 1 ? () => handleLotteryWinners(row.id, row.description) : () => DownloadWinners(row.id)}
                         className='tw-bg-orange-600 tw-font-VazirBold tw-text-white tw-rounded-md tw-w-[80px] hover:tw-bg-orange-700 tw-transition'
                       >
-                       {row.lotterySalePlanId == 1 ? 'قرعه کشی' : 'لیست برندگان'}
+                       {row.lotterySalePlanId === 1 ? 'قرعه کشی' : 'لیست برندگان'}
                       </button>
                     </div>
                   </td>
