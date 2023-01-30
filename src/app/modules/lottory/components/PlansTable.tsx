@@ -26,8 +26,8 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
   let navigate = useNavigate()
   // end: Define Hooks
   // start: Define Functions
-  const handleLotteryWinners = (salePlanDetailId: number, title: string): void => {
-    navigate(`/startlottery/${salePlanDetailId}`, {state: {title: title}})
+  const handleLotteryWinners = (salePlanDetailId: number, title: string, winDistance: number): void => {
+    navigate(`/startlottery/${salePlanDetailId}`, {state: {title: title, winDistance: winDistance}})
   }
   // start: Download Excel Files
   const DownloadAllApplicant = async (salePlanDetailId: number) => {
@@ -276,7 +276,7 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
                         title='قرعه کشی'
                         onClick={
                           row.lotteryStatusId == 0
-                            ? () => handleLotteryWinners(row.id, row.description)
+                            ? () => handleLotteryWinners(row.id, row.description, row.winDistance)
                             : () => DownloadWinners(row.id)
                         }
                         className={`${row.lotteryStatusId == 0 ? 'tw-bg-orange-600 hover:tw-bg-orange-700' : 'tw-bg-indigo-600 hover:tw-bg-indigo-700'} tw-font-VazirBold tw-text-white tw-rounded-md tw-w-[80px] tw-transition`}

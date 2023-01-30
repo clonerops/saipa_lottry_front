@@ -13,50 +13,58 @@ const StartLottery = () => {
   // start: Define Types
   type TParams = {id: string}
   // end: Define Types
-  
+
   // start: Define Hooks
   const {id} = useParams<TParams>()
   const location = useLocation()
-  const {title} = location.state as any
+  const {title, winDistance} = location.state as any
   // end: Define Hooks
 
   // start: Define State
   const [lotteryRoundValue, setLotteryRoundValue] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
   // end: Define State
-  
+
   const Execution = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (id) {
-      const data = {
-        salePlanDetailId: parseInt(id),
-        lottery_number: parseInt(lotteryRoundValue),
-      }
-      setLoading(true)
-      setTimeout(async () => {
-        const res = await lotteryWinners(data)
-        try {
-          if (res.status === 200) {
-            const result = await downloadWinners(parseInt(id))
-            const outputFilename = `LotteryWinners${Date.now()}.csv`
-            DownloadExcelFile(result.data, outputFilename)
-            setLoading(false)
-          } else if (res.data.Succeeded === false) {
-            setLoading(false)
-            toast.error(res.data.Message, {
-              position: 'top-right',
-              theme: 'dark',
-              bodyClassName: 'tw-font-Vazir',
-            })
-          } else {
+    if (parseInt(lotteryRoundValue) >= 1 && lotteryRoundValue <= winDistance) {
+      if (id) {
+        const data = {
+          salePlanDetailId: parseInt(id),
+          lottery_number: parseInt(lotteryRoundValue),
+        }
+        setLoading(true)
+        setTimeout(async () => {
+          const res = await lotteryWinners(data)
+          try {
+            if (res.status === 200) {
+              const result = await downloadWinners(parseInt(id))
+              const outputFilename = `LotteryWinners${Date.now()}.csv`
+              DownloadExcelFile(result.data, outputFilename)
+              setLoading(false)
+            } else if (res.data.Succeeded === false) {
+              setLoading(false)
+              toast.error(res.data.Message, {
+                position: 'top-right',
+                theme: 'dark',
+                bodyClassName: 'tw-font-Vazir',
+              })
+            } else {
+              setLoading(false)
+            }
+          } catch (error) {
+            console.log(error)
             setLoading(false)
           }
-        } catch (error) {
-          console.log(error)
-          setLoading(false)
-        }
-      }, 1000)
-    }
+        }, 1000)
+      }
+    } else {
+      toast.error('بازه زمانی نامعتبر می باشد', {
+        bodyClassName: 'tw-font-Vazir',
+        position: 'top-right',
+        theme: 'dark',
+      })
+  }
   }
 
   return (
@@ -73,6 +81,9 @@ const StartLottery = () => {
               className='tw-rounded-xl'
               alt='saipa lottery'
             />
+            <span className='tw-text-center tw-w-full tw-font-VazirBold tw-block tw-text-3xl'>
+              بازه عددی بین عدد [ 1 , {winDistance} ] می باشد
+            </span>
             <form onSubmit={Execution}>
               <InputAndLabel
                 title='عدد گردونه'
