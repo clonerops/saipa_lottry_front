@@ -131,7 +131,10 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
       <div className='card-header border-0 pt-5'>
         <h3 className='card-title align-items-start flex-column'>
           {/* <span className='card-label fw-bold fs-3 mb-1'>خودروهای طرح {title}</span> */}
-          <span className='text-muted mt-1 fw-semibold fs-7'>تعداد کل خودروهای موجود در قرعه کشی <span className='tw-text-green-700 tw-text-lg'>{rows.length}</span> عدد می باشد </span>
+          <span className='text-muted mt-1 fw-semibold fs-7'>
+            تعداد کل خودروهای موجود در قرعه کشی{' '}
+            <span className='tw-text-green-700 tw-text-lg'>{rows.length}</span> عدد می باشد{' '}
+          </span>
         </h3>
         <div
           className='card-toolbar'
@@ -152,12 +155,12 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
               لطفا یکی از طرح های فروش سایپا را انتخاب نمایید!
             </section>
           )} */}
-          <table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4'>
+          <table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-2'>
             {/* begin::Table head */}
             <thead>
               <tr className='fw-bold text-muted'>
                 {columns.map((column) => (
-                  <th key={column.id} className='min-w-150px tw-text-center tw-font-VazirBold'>
+                  <th key={column.id} className='min-w-120px tw-text-center tw-font-VazirBold'>
                     {column.name}
                   </th>
                 ))}
@@ -172,33 +175,6 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
                     <div className='d-flex tw-justify-center align-items-center'>
                       <div className='d-flex justify-content-start flex-column'>
                         <a href='#' className='text-dark fw-bold text-hover-primary fs-6'>
-                          {row.id}
-                        </a>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div className='d-flex tw-justify-center align-items-center'>
-                      <div className='d-flex justify-content-start flex-column'>
-                        <a href='#' className='text-dark fw-bold text-hover-primary fs-6'>
-                          {row.announceNo}
-                        </a>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div className='d-flex tw-justify-center align-items-center'>
-                      <div className='d-flex justify-content-start flex-column'>
-                        <a href='#' className='text-dark fw-bold text-hover-primary fs-6'>
-                          {row.announceRowNo}
-                        </a>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div className='d-flex tw-justify-center align-items-center'>
-                      <div className='d-flex justify-content-start flex-column'>
-                        <a href='#' className='text-dark fw-bold text-hover-primary fs-6'>
                           {row.circulationNo}
                         </a>
                       </div>
@@ -208,7 +184,7 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
                     <div className='d-flex tw-justify-center align-items-center'>
                       <div className='d-flex justify-content-start flex-column'>
                         <a href='#' className='text-dark fw-bold text-hover-primary fs-6'>
-                          {row.carRow}
+                          {row.description}
                         </a>
                       </div>
                     </div>
@@ -235,7 +211,7 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
                     <div className='d-flex tw-justify-center align-items-center'>
                       <div className='d-flex justify-content-start flex-column'>
                         <a href='#' className='text-dark fw-bold text-hover-primary fs-6'>
-                          1401/10/25
+                          {row.winDistance}
                         </a>
                       </div>
                     </div>
@@ -248,8 +224,8 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
                         data-placement='top'
                         title='لیست کل متقاضیان'
                         onClick={() => DownloadAllApplicant(row.id)}
-                        className='btn btn-icon btn-bg-light btn-active-color-primary btn-lg me-1'
-                      >
+                        className={`${row.lotteryStatusId == 0 ? 'btn-color-primary' : 'btn-active-color-primary'} btn btn-icon btn-bg-light  btn-lg`}
+                        >
                         <KTSVG
                           path='/media/icons/duotune/communication/com006.svg'
                           className='svg-icon-3'
@@ -260,8 +236,8 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
                         data-placement='top'
                         title='لیست واجد شرایط ها'
                         onClick={() => DownloadValidApplicant(row.lotterySalePlanId)}
-                        className='btn btn-icon btn-bg-light btn-active-color-primary btn-lg me-1'
-                      >
+                        className={`${row.lotteryStatusId == 0 ? 'btn-color-primary' : 'btn-active-color-primary'} btn btn-icon btn-bg-light  btn-lg`}
+                        >
                         <KTSVG
                           path='/media/icons/duotune/general/gen005.svg'
                           className='svg-icon-3'
@@ -272,33 +248,40 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
                         data-placement='top'
                         title='لیست فاقد شرایط ها'
                         onClick={() => DownloadNotValidApplicant(row.id)}
-                        className='btn btn-icon btn-bg-light btn-active-color-primary btn-lg me-1'
-                      >
+                        className={`${row.lotteryStatusId == 0 ? 'btn-color-primary' : 'btn-active-color-primary'} btn btn-icon btn-bg-light  btn-lg`}
+                        >
                         <KTSVG
                           path='/media/icons/duotune/general/gen009.svg'
                           className='svg-icon-3'
                         />
                       </button>
-                      <button
-                        data-toggle='tooltip'
-                        data-placement='top'
-                        title='بهم ریختگی'
-                        onClick={() => MessValidApplicantList(row.id)}
-                        className='btn btn-icon btn-bg-light btn-active-color-primary btn-lg'
-                      >
-                        <KTSVG
-                          path='/media/icons/duotune/general/gen011.svg'
-                          className='svg-icon-3'
-                        />
-                      </button>
+                      {/* {row.lotteryStatusId == 0 && ( */}
+                        <button
+                          data-toggle='tooltip'
+                          data-placement='top'
+                          disabled={row.lotteryStatusId != 0}
+                          title='بهم ریختگی'
+                          onClick={() => MessValidApplicantList(row.id)}
+                          className={`${row.lotteryStatusId == 0 ? 'btn-color-primary' : 'btn-active-color-primary'} btn btn-icon btn-bg-light  btn-lg`}
+                        >
+                          <KTSVG
+                            path='/media/icons/duotune/general/gen011.svg'
+                            className='svg-icon-3'
+                          />
+                        </button>
+                      {/* )} */}
                       <button
                         data-toggle='tooltip'
                         data-placement='top'
                         title='قرعه کشی'
-                        onClick={row.lotterySalePlanId === 1 ? () => handleLotteryWinners(row.id, row.description) : () => DownloadWinners(row.id)}
-                        className='tw-bg-orange-600 tw-font-VazirBold tw-text-white tw-rounded-md tw-w-[80px] hover:tw-bg-orange-700 tw-transition'
+                        onClick={
+                          row.lotteryStatusId == 0
+                            ? () => handleLotteryWinners(row.id, row.description)
+                            : () => DownloadWinners(row.id)
+                        }
+                        className={`${row.lotteryStatusId == 0 ? 'tw-bg-orange-600 hover:tw-bg-orange-700' : 'tw-bg-indigo-600 hover:tw-bg-indigo-700'} tw-font-VazirBold tw-text-white tw-rounded-md tw-w-[80px] tw-transition`}
                       >
-                       {row.lotterySalePlanId === 1 ? 'قرعه کشی' : 'لیست برندگان'}
+                        {row.lotteryStatusId == 0 ? 'قرعه کشی' : 'لیست برندگان'}
                       </button>
                     </div>
                   </td>

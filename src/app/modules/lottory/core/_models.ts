@@ -3,6 +3,7 @@ export interface PlansTableModel {
     id: number,
     lotterySalePlan: string
     lotterySalePlanId: number
+    lotteryStatusId: number
     announceNo: number
     announceRowNo: number 
     circulationNo: number 

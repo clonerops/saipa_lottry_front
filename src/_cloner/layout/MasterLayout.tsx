@@ -34,8 +34,11 @@ const MasterLayout: FC<WithChildren> = ({children}) => {
       <div className='page d-flex flex-row flex-column-fluid'>
         <div className='wrapper d-flex flex-column flex-row-fluid' id='kt_wrapper'>
           <HeaderWrapper />
+          <div className='tw-text-center tw-flex tw-justify-center tw-items-center tw-font-VazirBold pt-8 pb-0'>
+            <span className='tw-text-3xl text-white'>سیستم قرعه کشی محصولات گروه خودروسازی سایپا</span>
+          </div>
 
-          <div id='kt_content' className='content d-flex flex-column flex-column-fluid'>
+          <div id='kt_content' className='d-flex flex-column flex-column-fluid'>
             <Toolbar />
             <div
               className={clsx(

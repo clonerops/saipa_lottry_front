@@ -40,7 +40,7 @@ const Item4: FC = () => {
               data-bs-placement='top'
               title='Nina Nilson'
             >
-              <img src={toAbsoluteUrl('/media/avatars/300-14.jpg')} alt='img' />
+              <img src={toAbsoluteUrl('/media/avatars/300-1.jpg')} alt='img' />
             </div>
           </div>
         </div>

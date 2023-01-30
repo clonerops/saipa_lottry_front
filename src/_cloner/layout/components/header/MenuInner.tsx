@@ -7,7 +7,7 @@ export function MenuInner() {
   // const intl = useIntl()
   return (
     <>
-      <MenuItem title='قرعه کشی' to='/lottery' />
+      <MenuItem title='گروه خودروسازی سایپا' to='/lottery' />
       {/* <MenuItem title='Layout Builder' to='/builder' />
       <MenuInnerWithSub
         title='Crafted'
