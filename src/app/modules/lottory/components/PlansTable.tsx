@@ -172,7 +172,7 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
         {/* begin::Table container */}
         <div className='table-responsive'>
           {/* begin::Table */}
-          {/* {rows.length == 0 && (
+          {/* {rows.length === 0 && (
             <section className='tw-bg-sky-200 tw-w-full tw-rounded-lg tw-py-4 tw-px-8 tw-text-black tw-font-VazirBold tw-text-lg tw-mb-8'>
               لطفا یکی از طرح های فروش سایپا را انتخاب نمایید!
             </section>
@@ -246,7 +246,7 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
                         data-placement='top'
                         title='لیست کل متقاضیان'
                         onClick={() => DownloadAllApplicant(row.id)}
-                        className={`${row.lotteryStatusId == 0 ? 'btn-color-primary' : 'btn-active-color-primary'} btn btn-icon btn-bg-light  btn-lg`}
+                        className={`${row.lotteryStatusId === 0 ? 'btn-color-primary' : 'btn-active-color-primary'} btn btn-icon btn-bg-light  btn-lg`}
                         >
                         <KTSVG
                           path='/media/icons/duotune/communication/com006.svg'
@@ -258,7 +258,7 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
                         data-placement='top'
                         title='لیست واجد شرایط ها'
                         onClick={() => DownloadValidApplicant(row.lotterySalePlanId)}
-                        className={`${row.lotteryStatusId == 0 ? 'btn-color-primary' : 'btn-active-color-primary'} btn btn-icon btn-bg-light  btn-lg`}
+                        className={`${row.lotteryStatusId === 0 ? 'btn-color-primary' : 'btn-active-color-primary'} btn btn-icon btn-bg-light  btn-lg`}
                         >
                         <KTSVG
                           path='/media/icons/duotune/general/gen005.svg'
@@ -270,21 +270,21 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
                         data-placement='top'
                         title='لیست فاقد شرایط ها'
                         onClick={() => DownloadNotValidApplicant(row.id)}
-                        className={`${row.lotteryStatusId == 0 ? 'btn-color-primary' : 'btn-active-color-primary'} btn btn-icon btn-bg-light  btn-lg`}
+                        className={`${row.lotteryStatusId === 0 ? 'btn-color-primary' : 'btn-active-color-primary'} btn btn-icon btn-bg-light  btn-lg`}
                         >
                         <KTSVG
                           path='/media/icons/duotune/general/gen009.svg'
                           className='svg-icon-3'
                         />
                       </button>
-                      {/* {row.lotteryStatusId == 0 && ( */}
+                      {/* {row.lotteryStatusId === 0 && ( */}
                         <button
                           data-toggle='tooltip'
                           data-placement='top'
-                          disabled={row.lotteryStatusId != 0}
+                          disabled={row.lotteryStatusId !== 0}
                           title='بهم ریختگی'
                           onClick={() => MessValidApplicantList(row.id)}
-                          className={`${row.lotteryStatusId == 0 ? 'btn-color-primary' : 'btn-active-color-primary'} btn btn-icon btn-bg-light  btn-lg`}
+                          className={`${row.lotteryStatusId === 0 ? 'btn-color-primary' : 'btn-active-color-primary'} btn btn-icon btn-bg-light  btn-lg`}
                         >
                           <KTSVG
                             path='/media/icons/duotune/general/gen011.svg'
@@ -297,13 +297,13 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
                         data-placement='top'
                         title='قرعه کشی'
                         onClick={
-                          row.lotteryStatusId == 0
+                          row.lotteryStatusId === 0
                             ? () => handleLotteryWinners(row.id, row.description, row.winDistance)
                             : () => DownloadWinners(row.id)
                         }
-                        className={`${row.lotteryStatusId == 0 ? 'tw-bg-orange-600 hover:tw-bg-orange-700' : 'tw-bg-indigo-600 hover:tw-bg-indigo-700'} tw-font-VazirBold tw-text-white tw-rounded-md tw-w-[80px] tw-transition`}
+                        className={`${row.lotteryStatusId === 0 ? 'tw-bg-orange-600 hover:tw-bg-orange-700' : 'tw-bg-indigo-600 hover:tw-bg-indigo-700'} tw-font-VazirBold tw-text-white tw-rounded-md tw-w-[80px] tw-transition`}
                       >
-                        {row.lotteryStatusId == 0 ? 'قرعه کشی' : 'لیست برندگان'}
+                        {row.lotteryStatusId === 0 ? 'قرعه کشی' : 'لیست برندگان'}
                       </button>
                     </div>
                   </td>
