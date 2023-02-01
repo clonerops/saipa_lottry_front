@@ -59,7 +59,7 @@ const StartLottery = () => {
         }, 1000)
       }
     } else {
-      toast.error('بازه زمانی نامعتبر می باشد', {
+      toast.error('بازه عددی نامعتبر می باشد', {
         bodyClassName: 'tw-font-Vazir',
         position: 'top-right',
         theme: 'dark',

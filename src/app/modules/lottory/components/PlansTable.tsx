@@ -43,7 +43,12 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
       })
       if (setLoad) setLoad(false)
     } catch (error) {
-      console.log(error)
+      toast.error('خطا در دانلود لیست متقاضیان', {
+        bodyClassName: 'tw-font-Vazir',
+        position: 'top-right',
+        theme: 'dark',
+      })
+
       if (setLoad) setLoad(false)
     }
   }
@@ -60,7 +65,12 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
       })
       if (setLoad) setLoad(false)
     } catch (error) {
-      console.log(error)
+      toast.error('خطا در دانلود لیست واجدین شرایط', {
+        bodyClassName: 'tw-font-Vazir',
+        position: 'top-right',
+        theme: 'dark',
+      })
+
       if (setLoad) setLoad(false)
     }
   }
@@ -77,7 +87,11 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
       })
       if (setLoad) setLoad(false)
     } catch (error) {
-      console.log(error)
+      toast.error('خطا در دانلود لیست فاقدین شرایط', {
+        bodyClassName: 'tw-font-Vazir',
+        position: 'top-right',
+        theme: 'dark',
+      })
       if (setLoad) setLoad(false)
     }
   }
@@ -106,6 +120,13 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
       }
       try {
         const res = await lotteryMessApplicants(sendData)
+        if(res.data.Succeeded === false) {
+          toast.error(res.data.Message, {
+            bodyClassName: 'tw-font-Vazir',
+            position: 'top-right',
+            theme: 'dark',
+          })
+        }
         toast.success('بهم ریختگی لیست واجدین شرایط انجام شد', {
           bodyClassName: 'tw-font-Vazir',
           position: 'top-right',
@@ -124,6 +145,7 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
       }
     }, 2000)
   }
+  // end: Download Excel Files
 
   return (
     <div className={`card ${className}`}>
