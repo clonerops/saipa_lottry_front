@@ -65,3 +65,14 @@ export interface UserModel {
   address?: UserAddressModel
   socialNetworks?: UserSocialNetworksModel
 }
+
+export interface AuthenticationModel {
+  data?: CustomAuthModel
+}
+
+export interface CustomAuthModel {
+  email?: string
+  isVerified?: boolean
+  jwToken?: string
+  username?: string 
+}

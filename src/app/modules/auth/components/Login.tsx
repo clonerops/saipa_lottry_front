@@ -9,7 +9,7 @@ import {getUserByToken, login} from '../core/_requests'
 import {useAuth} from '../core/Auth'
 
 const loginSchema = Yup.object().shape({
-  username: Yup.string()
+  email: Yup.string()
     .min(3, 'Minimum 3 symbols')
     .max(50, 'Maximum 50 symbols')
     .required('نام کاربری اجباری می باشد'),
@@ -19,10 +19,17 @@ const loginSchema = Yup.object().shape({
     .required('رمز عبور اجباری می باشد'),
 })
 
+// const initialValues = {
+//   username: 'admin@demo.com',
+//   password: 'demo',
+// }
+
+
 const initialValues = {
-  username: 'admin@demo.com',
-  password: 'demo',
+  email: 'superadmin@gmail.com',
+  password: '123Pa$$word!',
 }
+
 
 export function Login() {
   const [loading, setLoading] = useState(false)
@@ -33,10 +40,16 @@ export function Login() {
     onSubmit: async (values, {setStatus, setSubmitting}) => {
       setLoading(true)
       try {
-        const {data: auth} = await login(values.username, values.password)
+        // const {data: auth} = await login(values.email, values.password)
+        // saveAuth(auth)
+        // const {data: user} = await getUserByToken(auth.api_token)
+        // setCurrentUser(user)
+
+        const {data: auth} = await login(values.email, values.password)
         saveAuth(auth)
-        const {data: user} = await getUserByToken(auth.api_token)
-        setCurrentUser(user)
+        setCurrentUser(auth)
+        // const {data: user} = await getUserByToken(auth.api_token)
+
       } catch (error) {
         console.error(error)
         saveAuth(undefined)
@@ -83,21 +96,21 @@ export function Login() {
         <label className='form-label fs-6 fw-bold text-dark'>نام کاربری</label>
         <input
           placeholder='نام کاربری'
-          {...formik.getFieldProps('username')}
+          {...formik.getFieldProps('email')}
           className={clsx(
             'form-control form-control-lg form-control-solid',
-            {'is-invalid': formik.touched.username && formik.errors.username},
+            {'is-invalid': formik.touched.email && formik.errors.email},
             {
-              'is-valid': formik.touched.username && !formik.errors.username,
+              'is-valid': formik.touched.email && !formik.errors.email,
             }
           )}
           type='text'
-          name='username'
+          name='email'
           autoComplete='off'
         />
-        {formik.touched.username && formik.errors.username && (
+        {formik.touched.email && formik.errors.email && (
           <div className='fv-plugins-message-container'>
-            <span role='alert'>{formik.errors.username}</span>
+            <span role='alert'>{formik.errors.email}</span>
           </div>
         )}
       </div>

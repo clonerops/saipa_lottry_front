@@ -9,16 +9,20 @@ import {
   SetStateAction,
 } from 'react'
 import {LayoutSplashScreen} from '../../../../_cloner/layout/core'
-import {AuthModel, UserModel} from './_models'
+import {AuthModel, CustomAuthModel, UserModel, AuthenticationModel} from './_models'
 import * as authHelper from './AuthHelpers'
 import {getUserByToken} from './_requests'
 import {WithChildren} from '../../../../_cloner/helpers'
 
 type AuthContextProps = {
-  auth: AuthModel | undefined
-  saveAuth: (auth: AuthModel | undefined) => void
-  currentUser: UserModel | undefined
-  setCurrentUser: Dispatch<SetStateAction<UserModel | undefined>>
+  // auth: AuthModel | undefined
+  auth: AuthenticationModel | undefined
+  // saveAuth: (auth: AuthModel | undefined) => void
+  saveAuth: (auth: AuthenticationModel | undefined) => void
+  // currentUser: UserModel | undefined
+  // setCurrentUser: Dispatch<SetStateAction<UserModel | undefined>>
+  currentUser: AuthenticationModel | undefined
+  setCurrentUser: Dispatch<SetStateAction<AuthenticationModel | undefined>>
   logout: () => void
 }
 
@@ -37,9 +41,19 @@ const useAuth = () => {
 }
 
 const AuthProvider: FC<WithChildren> = ({children}) => {
-  const [auth, setAuth] = useState<AuthModel | undefined>(authHelper.getAuth())
-  const [currentUser, setCurrentUser] = useState<UserModel | undefined>()
-  const saveAuth = (auth: AuthModel | undefined) => {
+  // const [auth, setAuth] = useState<AuthModel | undefined>(authHelper.getAuth())
+  const [auth, setAuth] = useState<AuthenticationModel | undefined>(authHelper.getAuth())
+  // const [currentUser, setCurrentUser] = useState<UserModel | undefined>()
+  const [currentUser, setCurrentUser] = useState<AuthenticationModel | undefined>()
+  // const saveAuth = (auth: AuthModel | undefined) => {
+  //   setAuth(auth)
+  //   if (auth) {
+  //     authHelper.setAuth(auth)
+  //   } else {
+  //     authHelper.removeAuth()
+  //   }
+  // }
+  const saveAuth = (auth: AuthenticationModel | undefined) => {
     setAuth(auth)
     if (auth) {
       authHelper.setAuth(auth)
@@ -69,9 +83,12 @@ const AuthInit: FC<WithChildren> = ({children}) => {
     const requestUser = async (apiToken: string) => {
       try {
         if (!didRequest.current) {
-          const {data} = await getUserByToken(apiToken)
-          if (data) {
-            setCurrentUser(data)
+          // const {data} = await getUserByToken(apiToken)
+          // if (data) {
+          //   setCurrentUser(data)
+          // }
+          if (auth) {
+            setCurrentUser(auth)
           }
         }
       } catch (error) {
@@ -86,8 +103,14 @@ const AuthInit: FC<WithChildren> = ({children}) => {
       return () => (didRequest.current = true)
     }
 
-    if (auth && auth.api_token) {
-      requestUser(auth.api_token)
+    // if (auth && auth.api_token) {
+    //   requestUser(auth.api_token)
+    // } else {
+    //   logout()
+    //   setShowSplashScreen(false)
+    // }
+    if (auth && auth.data?.jwToken) {
+      requestUser(auth.data.jwToken)
     } else {
       logout()
       setShowSplashScreen(false)
