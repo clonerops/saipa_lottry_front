@@ -153,9 +153,9 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
       <div className='card-header border-0 pt-5'>
         <h3 className='card-title align-items-start flex-column'>
           {/* <span className='card-label fw-bold fs-3 mb-1'>خودروهای طرح {title}</span> */}
-          <span className='text-muted mt-1 fw-semibold fs-7'>
+          <span className='tw-text-2xl tw-font-VazirBold'>
             تعداد کل خودروهای موجود در قرعه کشی{' '}
-            <span className='tw-text-green-700 tw-text-lg'>{rows.length}</span> عدد می باشد{' '}
+            <span className='tw-text-green-700 tw-text-3xl'>{rows.length}</span> عدد می باشد{' '}
           </span>
         </h3>
         <div
@@ -182,7 +182,7 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
             <thead>
               <tr className='fw-bold text-muted'>
                 {columns.map((column) => (
-                  <th key={column.id} className='min-w-120px tw-text-center tw-font-VazirBold'>
+                  <th key={column.id} className='min-w-120px tw-text-center tw-font-VazirBold text-dark'>
                     {column.name}
                   </th>
                 ))}
