@@ -9,9 +9,9 @@ import {
   SetStateAction,
 } from 'react'
 import {LayoutSplashScreen} from '../../../../_cloner/layout/core'
-import {AuthModel, CustomAuthModel, UserModel, AuthenticationModel} from './_models'
+import {AuthenticationModel} from './_models'
 import * as authHelper from './AuthHelpers'
-import {getUserByToken} from './_requests'
+// import {getUserByToken} from './_requests'
 import {WithChildren} from '../../../../_cloner/helpers'
 
 type AuthContextProps = {

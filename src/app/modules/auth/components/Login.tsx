@@ -4,7 +4,7 @@ import * as Yup from 'yup'
 import clsx from 'clsx'
 // import {Link} from 'react-router-dom'
 import {useFormik} from 'formik'
-import {getUserByToken, login} from '../core/_requests'
+import {login} from '../core/_requests'
 // import {toAbsoluteUrl} from '../../../../_cloner/helpers'
 import {useAuth} from '../core/Auth'
 

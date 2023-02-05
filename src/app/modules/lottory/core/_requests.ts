@@ -1,5 +1,5 @@
 import http from '../../../../_cloner/helpers/services/http'
-import {SalePlansDjangoModel, SalePlansModel} from './_models'
+import {SalePlansModel} from './_models'
 
 const LOTTERY_API_URL = process.env.REACT_APP_API_URL_LOTTERY
 
