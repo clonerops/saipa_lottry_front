@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react'
+import React, { useState } from 'react'
 import {toast} from 'react-toastify'
 import {PlansTableModel} from '../../../../app/modules/lottory/core/_models'
 import {KTSVG} from '../../../../_cloner/helpers'
@@ -24,9 +24,14 @@ type Props = {
 const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
   // start: Define Hooks
   let navigate = useNavigate()
+  const [selectedRow, setSelectedRow] = useState<number>(0)
   // end: Define Hooks
   // start: Define Functions
-  const handleLotteryWinners = (salePlanDetailId: number, title: string, winDistance: number): void => {
+  const handleLotteryWinners = (
+    salePlanDetailId: number,
+    title: string,
+    winDistance: number
+  ): void => {
     navigate(`/startlottery/${salePlanDetailId}`, {state: {title: title, winDistance: winDistance}})
   }
   // start: Download Excel Files
@@ -120,7 +125,7 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
       }
       try {
         const res = await lotteryMessApplicants(sendData)
-        if(res.data.Succeeded === false) {
+        if (res.data.Succeeded === false) {
           toast.error(res.data.Message, {
             bodyClassName: 'tw-font-Vazir',
             position: 'top-right',
@@ -147,16 +152,28 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
   }
   // end: Download Excel Files
 
+  const handleCheck = (rowId: number):void => {
+    setSelectedRow(rowId)
+    
+    // if(rowID.toString() === e.target.value)
+  }
+
+  console.log(selectedRow)
+
   return (
     <div className={`card ${className}`}>
       {/* begin::Header */}
       <div className='card-header border-0 pt-5'>
         <h3 className='card-title align-items-start flex-column'>
           {/* <span className='card-label fw-bold fs-3 mb-1'>خودروهای طرح {title}</span> */}
-          <span className='tw-text-2xl tw-font-VazirBold'>
+          <span className='tw-text-3xl tw-font-VazirBold'>
             تعداد کل خودروهای موجود در قرعه کشی{' '}
             <span className='tw-text-green-700 tw-text-3xl'>{rows.length}</span> عدد می باشد{' '}
           </span>
+          {/* <span className='tw-text-5xl tw-font-VazirBold'>
+            تعداد کل خودروهای موجود در قرعه کشی{' '}
+            <span className='tw-text-green-700 tw-text-5xl'>{rows.length}</span> عدد می باشد{' '}
+          </span> */}
         </h3>
         <div
           className='card-toolbar'
@@ -182,7 +199,10 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
             <thead>
               <tr className='fw-bold text-muted'>
                 {columns.map((column) => (
-                  <th key={column.id} className='min-w-120px tw-text-center tw-font-VazirBold text-dark'>
+                  <th
+                    key={column.id}
+                    className='min-w-120px tw-text-center tw-font-VazirBold text-dark'
+                  >
                     {column.name}
                   </th>
                 ))}
@@ -191,50 +211,60 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
             {/* end::Table head */}
             {/* begin::Table body */}
             <tbody>
-              {rows.map((row) => (
-                <tr>
+              {rows.map((row, index) => (
+                // <tr key={row.id}  className={`${checked ? 'tw-bg-slate-200' : ''}`}>
+                <tr key={index} id={index.toString()} onClick={() =>handleCheck(index)} className={`${selectedRow === index ? 'tw-bg-slate-300' : ''} tw-cursor-pointer`}>
                   <td>
                     <div className='d-flex tw-justify-center align-items-center'>
                       <div className='d-flex justify-content-start flex-column'>
-                        <a href='#' className='text-dark fw-bold text-hover-primary fs-6'>
+                        <span className='text-dark fw-bold fs-6'>
                           {row.circulationNo}
-                        </a>
+                        </span>
                       </div>
                     </div>
                   </td>
+                  {/* <td>
+                    <div className='d-flex tw-justify-center align-items-center'>
+                      <div className='d-flex justify-content-start flex-column'>
+                        <a href='#' className='text-dark fw-bold  fs-6'>
+                          {row.circulationDesc}
+                        </a>
+                      </div>
+                    </div>
+                  </td> */}
                   <td>
                     <div className='d-flex tw-justify-center align-items-center'>
                       <div className='d-flex justify-content-start flex-column'>
-                        <a href='#' className='text-dark fw-bold text-hover-primary fs-6'>
+                        <span className='text-dark fw-bold fs-6'>
                           {row.description}
-                        </a>
+                        </span>
                       </div>
                     </div>
                   </td>
                   <td>
                     <div className='d-flex tw-justify-center align-items-center'>
                       <div className='d-flex justify-content-start flex-column'>
-                        <a href='#' className='text-dark fw-bold text-hover-primary fs-6'>
+                        <span className='text-dark fw-bold fs-6'>
                           {row.mainCapacity}
-                        </a>
+                        </span>
                       </div>
                     </div>
                   </td>
                   <td>
                     <div className='d-flex tw-justify-center align-items-center'>
                       <div className='d-flex justify-content-start flex-column'>
-                        <a href='#' className='text-dark fw-bold text-hover-primary fs-6'>
+                        <span className='text-dark fw-bold fs-6'>
                           {row.reserveCapacity}
-                        </a>
+                        </span>
                       </div>
                     </div>
                   </td>
                   <td>
                     <div className='d-flex tw-justify-center align-items-center'>
                       <div className='d-flex justify-content-start flex-column'>
-                        <a href='#' className='text-dark fw-bold text-hover-primary fs-6'>
+                        <span className='text-dark fw-bold fs-6'>
                           {row.winDistance}
-                        </a>
+                        </span>
                       </div>
                     </div>
                   </td>
@@ -246,8 +276,13 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
                         data-placement='top'
                         title='لیست کل متقاضیان'
                         onClick={() => DownloadAllApplicant(row.id)}
-                        className={`${row.lotteryStatusId === 0 ? 'btn-color-primary' : 'btn-active-color-primary'} btn btn-icon btn-bg-light  btn-lg`}
-                        >
+                        className={`${'btn-active-color-primary'} btn btn-icon btn-bg-light  btn-lg`}
+                        // className={`${
+                        //   row.lotteryStatusId === 0
+                        //     ? 'btn-color-primary'
+                        //     : 'btn-active-color-primary'
+                        // } btn btn-icon btn-bg-light  btn-lg`}
+                      >
                         <KTSVG
                           path='/media/icons/duotune/communication/com006.svg'
                           className='svg-icon-3'
@@ -258,8 +293,13 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
                         data-placement='top'
                         title='لیست واجد شرایط ها'
                         onClick={() => DownloadValidApplicant(row.lotterySalePlanId)}
-                        className={`${row.lotteryStatusId === 0 ? 'btn-color-primary' : 'btn-active-color-primary'} btn btn-icon btn-bg-light  btn-lg`}
-                        >
+                        className={`${'btn-active-color-primary'} btn btn-icon btn-bg-light  btn-lg`}
+                        // className={`${
+                        //   row.lotteryStatusId === 0
+                        //     ? 'btn-color-primary'
+                        //     : 'btn-active-color-primary'
+                        // } btn btn-icon btn-bg-light  btn-lg`}
+                      >
                         <KTSVG
                           path='/media/icons/duotune/general/gen005.svg'
                           className='svg-icon-3'
@@ -270,27 +310,32 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
                         data-placement='top'
                         title='لیست فاقد شرایط ها'
                         onClick={() => DownloadNotValidApplicant(row.id)}
-                        className={`${row.lotteryStatusId === 0 ? 'btn-color-primary' : 'btn-active-color-primary'} btn btn-icon btn-bg-light  btn-lg`}
-                        >
+                        className={`${'btn-active-color-primary'} btn btn-icon btn-bg-light  btn-lg`}
+                      >
                         <KTSVG
                           path='/media/icons/duotune/general/gen009.svg'
                           className='svg-icon-3'
                         />
                       </button>
                       {/* {row.lotteryStatusId === 0 && ( */}
-                        <button
-                          data-toggle='tooltip'
-                          data-placement='top'
-                          disabled={row.lotteryStatusId !== 0}
-                          title='بهم ریختگی'
-                          onClick={() => MessValidApplicantList(row.id)}
-                          className={`${row.lotteryStatusId === 0 ? 'btn-color-primary' : 'btn-active-color-primary'} btn btn-icon btn-bg-light  btn-lg`}
-                        >
-                          <KTSVG
-                            path='/media/icons/duotune/general/gen011.svg'
-                            className='svg-icon-3'
-                          />
-                        </button>
+                      <button
+                        data-toggle='tooltip'
+                        data-placement='top'
+                        disabled={row.lotteryStatusId !== 0}
+                        title='بهم ریختگی'
+                        onClick={() => MessValidApplicantList(row.id)}
+                        className={`${'btn-active-color-primary'} btn btn-icon btn-bg-light  btn-lg`}
+                        // className={`${
+                        //   row.lotteryStatusId === 0
+                        //     ? 'btn-color-primary'
+                        //     : 'btn-active-color-primary'
+                        // } btn btn-icon btn-bg-light  btn-lg`}
+                      >
+                        <KTSVG
+                          path='/media/icons/duotune/general/gen011.svg'
+                          className='svg-icon-3'
+                        />
+                      </button>
                       {/* )} */}
                       <button
                         data-toggle='tooltip'
@@ -301,7 +346,11 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
                             ? () => handleLotteryWinners(row.id, row.description, row.winDistance)
                             : () => DownloadWinners(row.id)
                         }
-                        className={`${row.lotteryStatusId === 0 ? 'tw-bg-orange-600 hover:tw-bg-orange-700' : 'tw-bg-indigo-600 hover:tw-bg-indigo-700'} tw-font-VazirBold tw-text-white tw-rounded-md tw-w-[80px] tw-transition`}
+                        className={`${
+                          row.lotteryStatusId === 0
+                            ? 'tw-bg-orange-600 hover:tw-bg-orange-700'
+                            : 'tw-bg-indigo-600 hover:tw-bg-indigo-700'
+                        } tw-font-VazirBold tw-text-white tw-rounded-md tw-w-[80px] tw-transition`}
                       >
                         {row.lotteryStatusId === 0 ? 'قرعه کشی' : 'لیست برندگان'}
                       </button>

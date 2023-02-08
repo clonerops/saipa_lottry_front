@@ -7,6 +7,7 @@ export interface PlansTableModel {
     announceNo: number
     announceRowNo: number 
     circulationNo: number 
+    circulationDesc: number 
     carRow: number 
     mainCapacity: number 
     reserveCapacity: number 

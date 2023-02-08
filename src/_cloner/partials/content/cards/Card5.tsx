@@ -33,8 +33,10 @@ const Card5: FC<Props> = ({
           <div className='symbol symbol-45px w-45px bg-light me-5'>
             <img src={toAbsoluteUrl(image)} alt='Metronic' className='p-3' />
           </div>
-
-          <a href='#' className='fs-4 fw-semibold text-hover-primary text-gray-600 m-0 tw-text-3xl tw-font-VazirBold'>
+          {/* <a href='#' className='tw-text-6xl'>
+            {title}
+          </a> */}
+          <a href='#' className='fs-4 fw-semibold text-hover-primary text-gray-600 m-0 tw-text-6xl tw-font-VazirBold'>
             {title}
           </a>
         </div>
