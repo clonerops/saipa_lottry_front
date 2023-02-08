@@ -2,9 +2,10 @@ import {useState} from 'react'
 import {useParams, useLocation} from 'react-router-dom'
 import {toast} from 'react-toastify'
 import {toAbsoluteUrl} from '../../../_cloner/helpers'
-import Backdrop from '../../../_cloner/helpers/components/Backdrop'
+// import Backdrop from '../../../_cloner/helpers/components/Backdrop'
 import ActionButton from '../../../_cloner/helpers/components/Modules/ActionButton'
 import InputAndLabel from '../../../_cloner/helpers/components/Modules/InputAndLabel'
+import WinnerBackdrop from '../../../_cloner/helpers/components/WinnerBackdrop'
 import {DownloadExcelFile} from '../../../_cloner/helpers/downloadExcel'
 import {Card5} from '../../../_cloner/partials/content/cards/Card5'
 import {downloadWinners, lotteryWinners} from './core/_requests'
@@ -70,7 +71,7 @@ const StartLottery = () => {
   return (
     <>
       {' '}
-      {loading && <Backdrop loading={loading} />}
+      {loading && <WinnerBackdrop loading={loading} />}
       <Card5 image='/media/svg/brand-logos/github.svg' title={`قرعه کشی خودروی ${title}`}>
         <div className='tw-grid tw-grid-cols-1 md:tw-grid-cols-2'>
           <section>
@@ -96,7 +97,8 @@ const StartLottery = () => {
           </section>
           <section className='tw-hidden md:tw-block'>
             <img
-              src={toAbsoluteUrl('/media/bg/0007.jpg')}
+              // src={toAbsoluteUrl('/media/bg/0007.jpg')}
+              src={toAbsoluteUrl('/media/bg/giftcar.png')}
               width={400}
               height={400}
               className='tw-rounded-xl '

@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import {FC} from 'react'
 import {toAbsoluteUrl, KTSVG} from '../../../helpers'
-import {Dropdown1} from '../dropdown/Dropdown1'
+// import {Dropdown1} from '../dropdown/Dropdown1'
 
 type Props = {
   image: string
@@ -52,8 +52,7 @@ const Card5: FC<Props> = ({
               className='svg-icon-3 svg-icon-primary'
             />
           </button>
-
-          <Dropdown1 />
+          {/* <Dropdown1 /> */}
         </div>
       </div>
 

@@ -6,6 +6,7 @@ import {useEffect, useState} from 'react'
 import {retrieveSalePlansDetailsRequest, retrieveSalePlansRequest} from './core/_requests'
 import {SalePlansModel} from './core/_models'
 import Backdrop from '../../../_cloner/helpers/components/Backdrop'
+// import WinnerBackdrop from '../../../_cloner/helpers/components/WinnerBackdrop'
 
 const Lottery = () => {
   const [salePlans, setSalePlans] = useState<SalePlansModel[]>([])
@@ -60,7 +61,9 @@ const Lottery = () => {
         >
           <section className='tw-grid tw-grid-cols-2'>
             <SelectAndLabel title='طرح های فروش' setSelected={setSelected}>
-              <option value={-1} disabled>انتخاب طرح فروش...</option>
+              <option value={-1} disabled>
+                انتخاب طرح فروش...
+              </option>
               {salePlans?.map((salePlan) => (
                 <>
                   <option
@@ -75,6 +78,8 @@ const Lottery = () => {
                 </>
               ))}
             </SelectAndLabel>
+          </section>
+          <section>
           </section>
           <section>
             <PlansTable
