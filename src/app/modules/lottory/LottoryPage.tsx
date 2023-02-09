@@ -6,7 +6,6 @@ import {useEffect, useState} from 'react'
 import {retrieveSalePlansDetailsRequest, retrieveSalePlansRequest} from './core/_requests'
 import {SalePlansModel} from './core/_models'
 import Backdrop from '../../../_cloner/helpers/components/Backdrop'
-import { TablesWidget1, TablesWidget2, TablesWidget3, TablesWidget4, TablesWidget5, TablesWidget9 } from '../../../_cloner/partials/widgets'
 // import WinnerBackdrop from '../../../_cloner/helpers/components/WinnerBackdrop'
 
 const Lottery = () => {
@@ -81,9 +80,6 @@ const Lottery = () => {
             </SelectAndLabel>
           </section>
           <section>
-          </section>
-          <section>
-            {/* <TablesWidget9 className='' /> */}
             <PlansTable
               className=''
               setLoad={setLoading}
