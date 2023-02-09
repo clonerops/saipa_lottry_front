@@ -34,6 +34,9 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
   ): void => {
     navigate(`/startlottery/${salePlanDetailId}`, {state: {title: title, winDistance: winDistance}})
   }
+  // start: Functions
+  const handleCheck = (rowId: number):void => setSelectedRow(rowId) 
+  // end: Functions 
   // start: Download Excel Files
   const DownloadAllApplicant = async (salePlanDetailId: number) => {
     if (setLoad) setLoad(true)
@@ -151,15 +154,6 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
     }, 2000)
   }
   // end: Download Excel Files
-
-  const handleCheck = (rowId: number):void => {
-    setSelectedRow(rowId)
-    
-    // if(rowID.toString() === e.target.value)
-  }
-
-  console.log(selectedRow)
-
   return (
     <div className={`card ${className}`}>
       {/* begin::Header */}
@@ -168,7 +162,7 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
           {/* <span className='card-label fw-bold fs-3 mb-1'>خودروهای طرح {title}</span> */}
           <span className='tw-text-3xl tw-font-VazirBold'>
             تعداد کل خودروهای موجود در قرعه کشی{' '}
-            <span className='tw-text-green-700 tw-text-3xl'>{rows.length}</span> عدد می باشد{' '}
+            <span className='tw-text-white tw-text-3xl tw-bg-green-700 tw-px-4 tw-rounded-full'>{rows.length}</span> عدد می باشد{' '}
           </span>
           {/* <span className='tw-text-5xl tw-font-VazirBold'>
             تعداد کل خودروهای موجود در قرعه کشی{' '}
