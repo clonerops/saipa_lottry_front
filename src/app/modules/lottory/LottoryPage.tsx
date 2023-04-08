@@ -19,8 +19,8 @@ const Lottery = () => {
     setLoading(true)
     try {
       const res = await retrieveSalePlansRequest()
-      if (res.status === 200) setLoading(false)
       setSalePlans(res.data.data)
+      if (res.status === 200) setLoading(false)
       // Django
       // const res = await retrieveSalePlansDjangoRequest()
       // setSalePlans(res.data)
@@ -33,8 +33,8 @@ const Lottery = () => {
     setLoading(true)
     try {
       const res = await retrieveSalePlansDetailsRequest(selected)
-      if (res.status === 200) setLoading(false)
       setSalePlansDetails(res.data.data)
+      if (res.status === 200) setLoading(false)
       // Django
       // const res = await retrieveSalePlansDetailsDjangoRequest(selected)
       // console.log('res', res)
