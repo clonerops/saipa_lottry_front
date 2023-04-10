@@ -6,6 +6,7 @@ import {useEffect, useState} from 'react'
 import {retrieveSalePlansDetailsRequest, retrieveSalePlansRequest} from './core/_requests'
 import {SalePlansModel} from './core/_models'
 import Backdrop from '../../../_cloner/helpers/components/Backdrop'
+import {toAbsoluteUrl} from '../../../_cloner/helpers'
 // import WinnerBackdrop from '../../../_cloner/helpers/components/WinnerBackdrop'
 
 const Lottery = () => {
@@ -51,33 +52,37 @@ const Lottery = () => {
     // eslint-disable-next-line
   }, [selected])
 
+  console.log("selected", selected)
+
   return (
     <div>
       {loading && <Backdrop loading={loading} />}
       <section>
-        <Card5
-          image='/media/svg/brand-logos/github.svg'
-          title='قرعه کشی محصولات گروه خودروسازی سایپا'
-        >
+        <Card5 image='/media/logos/saipa-logo.png' title='قرعه کشی محصولات گروه خودروسازی سایپا'>
           <section className='tw-grid tw-grid-cols-2'>
-            <SelectAndLabel title='طرح های فروش' setSelected={setSelected}>
-              <option value={-1} disabled>
-                انتخاب طرح فروش...
-              </option>
-              {salePlans?.map((salePlan) => (
-                <>
-                  <option
-                    placeholder='طرح مورد نظر را انتخاب کنید'
-                    selected={false}
-                    className='tw-font-Vazir'
-                    key={salePlan.id}
-                    value={salePlan.id}
-                  >
-                    {salePlan.salePlanDescription}
-                  </option>
-                </>
-              ))}
-            </SelectAndLabel>
+            <section className=''>
+              <SelectAndLabel title='طرح های فروش' setSelected={setSelected}>
+                <option value={-1} disabled>
+                  انتخاب طرح فروش...
+                </option>
+                {salePlans?.map((salePlan) => (
+                  <>
+                    <option
+                      placeholder='طرح مورد نظر را انتخاب کنید'
+                      selected={false}
+                      className='tw-font-Vazir'
+                      key={salePlan.id}
+                      value={salePlan.id}
+                    >
+                      {salePlan.salePlanDescription}
+                    </option>
+                  </>
+                ))}
+              </SelectAndLabel>
+            </section>
+            <section className='tw-w-[100%] tw-flex tw-justify-center tw-items-center'>
+              <img alt='saipa_logo' src={toAbsoluteUrl('/media/logos/saipa-logo.png')} width={80} height={80} />
+            </section>
           </section>
           <section>
             <PlansTable

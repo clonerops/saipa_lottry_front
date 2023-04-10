@@ -50,3 +50,9 @@ export interface SalePlansDjangoModel {
     Description: string
     data: []
 }
+
+export interface WinnersList {
+    nationalcode: string
+    trackingcode: string
+    gender: string
+}

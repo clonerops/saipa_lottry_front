@@ -52,7 +52,7 @@ export function HeaderWrapper() {
             <img
               alt='Logo'
               src={toAbsoluteUrl('/media/logos/saipa-logo.png')}
-              className='logo-default h-25px'
+              className='logo-default h-50px'
             />
             <img
               alt='Logo'

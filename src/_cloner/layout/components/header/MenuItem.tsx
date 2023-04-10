@@ -49,7 +49,7 @@ const MenuItem: React.FC<Props> = ({
           </span>
         )}
 
-        <span className={`menu-title`}>{title}</span>
+        <span className={`menu-title tw-font-VazirBold`}>{title}</span>
 
         {hasArrow && <span className='menu-arrow'></span>}
       </Link>

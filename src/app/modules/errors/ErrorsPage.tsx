@@ -9,7 +9,7 @@ const ErrorsLayout = () => {
   useEffect(() => {
     document.body.style.backgroundImage = `none`
     return () => {
-      document.body.style.backgroundImage = `url(${toAbsoluteUrl('/media/patterns/header-bg.jpg')})`
+      document.body.style.backgroundImage = `url(${toAbsoluteUrl('/media/patterns/header-bg.png')})`
     }
   }, [])
 

@@ -18,7 +18,7 @@ const Modal: FC<IProps> = ({children, showModal, setShowModal}) => {
               onClick={() => setShowModal(false)}
             ></div>
             <div className='tw-flex tw-min-h-screen tw-items-center tw-px-4 tw-py-8'>
-              <div className='tw-relative tw-mx-auto tw-w-full tw-max-w-lg tw-rounded-md tw-bg-white tw-p-4 tw-shadow-lg'>
+              <div className='tw-relative tw-mx-auto tw-w-full tw-max-w-xl tw-rounded-md tw-bg-white tw-p-4 tw-shadow-lg'>
                 <span onClick={() => setShowModal(false)}>
                   <KTSVG path='/media/icons/duotune/coding/cod011.svg' className='svg-icon-3'/>
                 </span>

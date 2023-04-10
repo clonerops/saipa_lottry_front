@@ -12,7 +12,7 @@ export const LOTTERY_VALID_ALL_APPLICANT = `${LOTTERY_API_URL}/LotteryExcelRepor
 export const LOTTERY_VALID_APPLICANT = `${LOTTERY_API_URL}/LotteryExcelReport/GetLotteryValidApplicants`
 export const LOTTERY_INVALID_APPLICANT = `${LOTTERY_API_URL}/LotteryExcelReport/GetLotInValidApplicants`
 export const LOTTERY_WINNERS_LIST = `${LOTTERY_API_URL}/LotteryExcelReport/GetLotteryWinners`
-
+export const SHOW_WINNER_LIST = `${LOTTERY_API_URL}/Lottery/GetLotteryFirstNWinners`
 // Django
 
 export function retrieveSalePlansRequest() {
@@ -68,6 +68,9 @@ export function downloadWinners(id: number) {
   })
 }
 
+export function showWinnersList(id: number, count: number) {
+  return http.get(SHOW_WINNER_LIST+`?SalePlanDetailId=${id}&N=${count}`)
+}
 // Django
 const LOTTERY_API_URL_DJANGO = process.env.REACT_APP_API_URL_DJANGO_LOTTERY
 

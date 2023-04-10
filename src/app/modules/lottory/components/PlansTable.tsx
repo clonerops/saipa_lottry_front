@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 import {toast} from 'react-toastify'
-import {PlansTableModel} from '../../../../app/modules/lottory/core/_models'
+import {PlansTableModel, WinnersList} from '../../../../app/modules/lottory/core/_models'
 import {KTSVG} from '../../../../_cloner/helpers'
 import {DownloadExcelFile} from '../../../../_cloner/helpers/downloadExcel'
 import {Table} from '../../../../_cloner/helpers/models/_table'
@@ -12,7 +12,12 @@ import {
   downloadLotteryValidApplicant,
   downloadWinners,
   lotteryMessApplicants,
+  showWinnersList,
 } from '../core/_requests'
+import Modal from '../../../../_cloner/helpers/components/Modal'
+import InputAndLabel from '../../../../_cloner/helpers/components/Modules/InputAndLabel'
+import WinnersUser from '../../../../_cloner/helpers/components/WinnersUser'
+// import SwiperComponent from '../../../../_cloner/helpers/components/Swiper'
 
 type Props = {
   className: string
@@ -25,6 +30,12 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
   // start: Define Hooks
   let navigate = useNavigate()
   const [selectedRow, setSelectedRow] = useState<number>(0)
+  const [showModal, setShowModal] = useState<boolean>(false)
+  const [showWinnersListId, setShowWinnersListId] = useState<number>(0)
+  const [winnerList, setWinnersList] = useState<WinnersList[]>([])
+  const [showWinnersListCount, setShowWinnersListCount] = useState<string>('3')
+  const [showProductName, setShowProductName] = useState<string>('')
+
   // end: Define Hooks
   // start: Define Functions
   const handleLotteryWinners = (
@@ -35,8 +46,8 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
     navigate(`/startlottery/${salePlanDetailId}`, {state: {title: title, winDistance: winDistance}})
   }
   // start: Functions
-  const handleCheck = (rowId: number):void => setSelectedRow(rowId) 
-  // end: Functions 
+  const handleCheck = (rowId: number): void => setSelectedRow(rowId)
+  // end: Functions
   // start: Download Excel Files
   const DownloadAllApplicant = async (salePlanDetailId: number) => {
     if (setLoad) setLoad(true)
@@ -120,7 +131,7 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
       if (setLoad) setLoad(false)
     }
   }
-  const MessValidApplicantList = (salePlanDetailId: number) => {
+  const MessAndDownloadValidApplicantList = (salePlanDetailId: number) => {
     if (setLoad) setLoad(true)
     setTimeout(async () => {
       const sendData = {
@@ -135,13 +146,15 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
             theme: 'dark',
           })
         }
-        toast.success('بهم ریختگی لیست واجدین شرایط انجام شد', {
+          const result = await downloadLotteryValidApplicant(salePlanDetailId)
+          const outputFilename = `LotteryMessApplicants${Date.now()}.csv`
+          DownloadExcelFile(result.data, outputFilename)
+          toast.success('بهم ریختگی لیست واجدین شرایط انجام شد', {
           bodyClassName: 'tw-font-Vazir',
           position: 'top-right',
           theme: 'dark',
         })
         if (setLoad) setLoad(false)
-        console.log(res)
       } catch (error) {
         toast.error('مشکلی پیش آمده! دوباره سعی کنید', {
           bodyClassName: 'tw-font-Vazir',
@@ -154,15 +167,38 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
     }, 2000)
   }
   // end: Download Excel Files
+  // start: Handle Show Winners List
+
+  const handleShowWinnerList = async (rowId: number, productName: string) => {
+    if (setLoad) setLoad(true)
+    setShowWinnersListId(rowId)
+    const res = await ShowWinnerListCallApi(rowId, showWinnersListCount, setWinnersList)
+    if (res?.status === 200) {
+      setShowModal(true)
+      setShowProductName(productName)
+      if (setLoad) setLoad(false)
+    } else {
+      if (setLoad) setLoad(false)
+    }
+  }
+  const handleShowWinnerListWithInput = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    await ShowWinnerListCallApi(showWinnersListId, showWinnersListCount, setWinnersList)
+  }
+  // end: Handle Show Winners List
+
   return (
     <div className={`card ${className}`}>
       {/* begin::Header */}
       <div className='card-header border-0 pt-5'>
         <h3 className='card-title align-items-start flex-column'>
           {/* <span className='card-label fw-bold fs-3 mb-1'>خودروهای طرح {title}</span> */}
-          <span className='tw-text-3xl tw-font-VazirBold'>
+          <span className='tw-text-xl tw-font-VazirBold'>
             تعداد کل خودروهای موجود در قرعه کشی{' '}
-            <span className='tw-text-white tw-text-3xl tw-bg-green-700 tw-px-4 tw-rounded-full'>{rows.length}</span> عدد می باشد{' '}
+            <span className='tw-text-white tw-text-3xl tw-bg-green-700 tw-px-4 tw-rounded-full'>
+              {rows.length}
+            </span>{' '}
+            عدد می باشد{' '}
           </span>
           {/* <span className='tw-text-5xl tw-font-VazirBold'>
             تعداد کل خودروهای موجود در قرعه کشی{' '}
@@ -207,13 +243,16 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
             <tbody>
               {rows.map((row, index) => (
                 // <tr key={row.id}  className={`${checked ? 'tw-bg-slate-200' : ''}`}>
-                <tr key={index} id={index.toString()} onClick={() =>handleCheck(index)} className={`${selectedRow === index ? 'tw-bg-slate-300' : ''} tw-cursor-pointer`}>
+                <tr
+                  key={index}
+                  id={index.toString()}
+                  onClick={() => handleCheck(index)}
+                  className={`${selectedRow === index ? 'tw-bg-slate-300' : ''} tw-cursor-pointer`}
+                >
                   <td>
                     <div className='d-flex tw-justify-center align-items-center'>
                       <div className='d-flex justify-content-start flex-column'>
-                        <span className='text-dark fw-bold fs-6'>
-                          {row.circulationNo}
-                        </span>
+                        <span className='text-dark fw-bold fs-6'>{row.circulationNo}</span>
                       </div>
                     </div>
                   </td>
@@ -229,36 +268,28 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
                   <td>
                     <div className='d-flex tw-justify-center align-items-center'>
                       <div className='d-flex justify-content-start flex-column'>
-                        <span className='text-dark fw-bold fs-6'>
-                          {row.description}
-                        </span>
+                        <span className='text-dark fw-bold fs-6'>{row.description}</span>
                       </div>
                     </div>
                   </td>
                   <td>
                     <div className='d-flex tw-justify-center align-items-center'>
                       <div className='d-flex justify-content-start flex-column'>
-                        <span className='text-dark fw-bold fs-6'>
-                          {row.mainCapacity}
-                        </span>
+                        <span className='text-dark fw-bold fs-6'>{row.mainCapacity}</span>
                       </div>
                     </div>
                   </td>
                   <td>
                     <div className='d-flex tw-justify-center align-items-center'>
                       <div className='d-flex justify-content-start flex-column'>
-                        <span className='text-dark fw-bold fs-6'>
-                          {row.reserveCapacity}
-                        </span>
+                        <span className='text-dark fw-bold fs-6'>{row.reserveCapacity}</span>
                       </div>
                     </div>
                   </td>
                   <td>
                     <div className='d-flex tw-justify-center align-items-center'>
                       <div className='d-flex justify-content-start flex-column'>
-                        <span className='text-dark fw-bold fs-6'>
-                          {row.winDistance}
-                        </span>
+                        <span className='text-dark fw-bold fs-6'>{row.winDistance}</span>
                       </div>
                     </div>
                   </td>
@@ -317,7 +348,7 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
                         data-placement='top'
                         disabled={row.lotteryStatusId !== 0}
                         title='بهم ریختگی'
-                        onClick={() => MessValidApplicantList(row.id)}
+                        onClick={() => MessAndDownloadValidApplicantList(row.id)}
                         className={`${'btn-active-color-primary'} btn btn-icon btn-bg-light  btn-lg`}
                         // className={`${
                         //   row.lotteryStatusId === 0
@@ -344,10 +375,25 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
                           row.lotteryStatusId === 0
                             ? 'tw-bg-orange-600 hover:tw-bg-orange-700'
                             : 'tw-bg-indigo-600 hover:tw-bg-indigo-700'
-                        } tw-font-VazirBold tw-text-white tw-rounded-md tw-w-[80px] tw-transition`}
+                        } tw-font-VazirBold tw-text-white tw-rounded-md tw-w-[90px] tw-transition`}
                       >
-                        {row.lotteryStatusId === 0 ? 'قرعه کشی' : 'لیست برندگان'}
+                        {row.lotteryStatusId === 0 ? 'قرعه کشی' : 'لیست منتخبین'}
                       </button>
+                      {row.lotteryStatusId !== 0 && (
+                        <button
+                          data-toggle='tooltip'
+                          data-placement='top'
+                          title='قرعه کشی'
+                          onClick={() => handleShowWinnerList(row.id, row.description)}
+                          className={`${
+                            row.lotteryStatusId === 0
+                              ? 'tw-bg-orange-600 hover:tw-bg-orange-700'
+                              : 'tw-bg-indigo-600 hover:tw-bg-indigo-700'
+                          } tw-font-VazirBold tw-text-white tw-rounded-md tw-w-[90px] tw-transition`}
+                        >
+                          نمایش منتخبین
+                        </button>
+                      )}
                     </div>
                   </td>
                 </tr>
@@ -359,17 +405,39 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
         </div>
         {/* end::Table container */}
         {/* start: Modal Lottery */}
-        {/* <Modal showModal={showModal} setShowModal={setShowModal}>
-          <form onSubmit={Execution}>
-            <InputAndLabel
-              title='عدد گردونه'
-              lottery
-              valueData={lotteryRoundValue}
-              onChangeData={(e) => setLotteryRoundValue(e.target.value)}
-            />
-            <ActionButton title='اجرا' />
+        <Modal showModal={showModal} setShowModal={setShowModal}>
+          <h3 className='tw-font-VazirBold tw-py-4 tw-text-2xl'>
+            {`برندگان خودروی ${showProductName}`}
+          </h3>
+          <form onSubmit={(e) => handleShowWinnerListWithInput(e)}>
+            <p>
+              <span className='tw-text-red-600'>نکته:</span> بصورت پیشفرض 3 نفر اول برندگان هر طرح
+              نمایش داده می شود برای نمایش اطلاعات برندگان بیشتر لطفا تعداد آن را در فیلد زیر وارد
+              کنید
+            </p>
+            <section className='tw-flex'>
+              <InputAndLabel
+                lottery
+                title='تعداد نمایش برندگان'
+                valueData={showWinnersListCount}
+                onChangeData={(e) => setShowWinnersListCount(e.target.value)}
+              />
+              <button className='tw-bg-indigo-500 tw-text-white tw-py-0 tw-px-4 tw-rounded-md tw-h-[40px] tw-mt-2'>
+                نمایش
+              </button>
+            </section>
           </form>
-        </Modal> */}
+          {winnerList.map((i) => (
+            <div key={i.nationalcode} className='tw-mt-4 tw-mb-4'>
+              <WinnersUser
+                nationalCode={i.nationalcode}
+                trackingCode={i.trackingcode}
+                gender={i.gender}
+              />
+            </div>
+          ))}
+          {/* <SwiperComponent /> */}
+        </Modal>
         {/* end: Modal Lottery */}
       </div>
       {/* begin::Body */}
@@ -378,3 +446,18 @@ const PlansTable: React.FC<Props> = ({className, columns, rows, setLoad}) => {
 }
 
 export {PlansTable}
+async function ShowWinnerListCallApi(
+  showWinnersListId: number,
+  showWinnersListCount: string,
+  setWinnersList: React.Dispatch<React.SetStateAction<WinnersList[]>>
+) {
+  try {
+    const res = await showWinnersList(showWinnersListId, parseInt(showWinnersListCount))
+    if (res.status === 200) {
+      setWinnersList(res.data.data)
+    }
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
