@@ -12,9 +12,9 @@ const PrivateRoutes = () => {
 
   return (
     <Routes>
+      <Route path='auth/*' element={<Navigate to='/landing' />} />
       <Route element={<MasterLayout />}>
         {/* Redirect to Dashboard after success login/registartion */}
-        <Route path='auth/*' element={<Navigate to='/lottery' />} />
         {/* Pages */}
         <Route path='dashboard' element={<DashboardWrapper />} />
         {/* Lazy Modules */}
@@ -34,7 +34,6 @@ const PrivateRoutes = () => {
             </SuspensedView>
           }
         />
-
         {/* Page Not Found */}
         <Route path='*' element={<Navigate to='/error/404' />} />
       </Route>
